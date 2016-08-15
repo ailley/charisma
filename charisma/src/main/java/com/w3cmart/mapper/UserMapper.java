@@ -5,7 +5,9 @@ import com.w3cmart.entity.User;
 import com.w3cmart.entity.UserExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface UserMapper extends MapperSuper {
 
     User queryUserByUserName(String userName);
