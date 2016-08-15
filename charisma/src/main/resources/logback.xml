@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<!-- Reference Manual http://logback.qos.ch/manual/index.html -->
+ 
+<configuration>
+ 
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender"> 
+        <encoder charset="UTF-8"> <!-- encoder 可以指定字符集，对于中文输出有意义 -->
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %c.%M\(%F:%L\) -  %msg%n</pattern>
+        </encoder>
+    </appender> 
+ 
+    <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 可让每天产生一个日志文件，最多 10 个，自动回滚 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>D:/log/charisma-%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+ 
+        <encoder charset="UTF-8">
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{30} %L - %msg%n</pattern>
+        </encoder>
+    </appender>
+ 
+    <!-- 输出到控制台和文件，可定义更多的 Appender -->
+    <!--
+    <root level="warn">
+ 	-->
+ 	
+    <root level="trace">
+        <appender-ref ref="RollingFile"/>
+        <appender-ref ref="stdout"/>
+    </root>
+    
+ 
+    <!-- 下面配置一些第三方包的日志过滤级别，用于避免刷屏 -->
+ <!-- -->
+    <logger name="org.springframework" level="WARN"/>
+    <logger name="com.opensymphony" level="WARN"/>
+    <logger name="org.apache" level="WARN"/>
+
+
+</configuration>
