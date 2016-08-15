@@ -5,6 +5,6 @@ package com.h.common.admin.superpage;
  */
 import java.io.Serializable;
 
-public abstract interface BeanSuper extends Serializable {
+public  interface BeanSuper extends Serializable {
 
 }
