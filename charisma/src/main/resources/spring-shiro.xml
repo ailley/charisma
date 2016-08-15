@@ -39,14 +39,10 @@
         <!-- 权限配置 -->
         <property name="filterChainDefinitions">
             <value>
+                <!-- 跳转登录页面不需要权限-->
+                /login.htm=anon
                 <!-- anon表示此地址不需要任何权限即可访问 -->
                 /static/**=anon
-                <!-- perms[user:query]表示访问此连接需要权限为user:query的用户 -->
-                /user=perms[user:query]
-                <!-- roles[manager]表示访问此连接需要用户的角色为manager -->
-                /user/add=roles[manager]
-                /user/del/**=roles[admin]
-                /user/edit/**=roles[manager]
                 <!--所有的请求(除去配置的静态资源请求或请求地址为anon的请求)都要通过登录验证,如果未登录则跳到/login-->
                 /** = authc
             </value>
@@ -57,8 +53,8 @@
     <bean id="formAuthenticationFilter" class="com.w3cmart.common.filter.MyFormAuthenticationFilter">
         <property name="usernameParam" value="userName" />
         <property name="passwordParam" value="password" />
-        <property name="loginUrl" value="/web/login/loginForPC.do" />
-        <property name="successUrl" value="/pages/jsp/home/index.jsp" />
+        <property name="loginUrl" value="/loginPC.do" />
+        <property name="successUrl" value="/index.jsp" />
     </bean>
     <!-- 缓存管理器 -->
     <bean id="cacheManager" class="com.w3cmart.cache.SpringCacheManagerWrapper">

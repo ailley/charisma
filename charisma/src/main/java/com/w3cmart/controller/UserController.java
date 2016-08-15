@@ -20,13 +20,17 @@ import java.io.IOException;
 @Controller
 public class UserController {
 
+    @RequestMapping(value = "login")
+    public String loginPC(){
+        return "login";
+    }
     /**
      * 登陆PC页面
      *
      * @param request
      * @return
      */
-    @RequestMapping(value = "login")
+    @RequestMapping(value = "loginPC")
     public String loginForPC(String userName, String password,
                              HttpServletRequest request, HttpServletResponse response,
                              Model model) {
@@ -37,7 +41,7 @@ public class UserController {
         if (subject.getPrincipal() != null) {
             try {
                 WebUtils.issueRedirect(request, response,
-                        "/pages/jsp/home/index.jsp");
+                        "index.jsp");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -54,10 +58,16 @@ public class UserController {
             error = "其他错误：" + exceptionClassName;
         }
         model.addAttribute("error", error);
-        return "/jsp/login";
+        return "login";
     }
+
+    /**
+     * 退出登录
+     * @param req
+     * @param response
+     */
     @RequestMapping("/logout")
-    public void logout(HttpServletRequest req, Model model,HttpServletResponse response){
+    public void logout(HttpServletRequest req,HttpServletResponse response){
 
         Subject subject = SecurityUtils.getSubject();
         try {

@@ -2,6 +2,7 @@ package com.w3cmart.service.user;
 
 import com.w3cmart.dao.user.UserDao;
 import com.w3cmart.entity.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -12,7 +13,7 @@ import javax.annotation.Resource;
 @Service
 public class UserServiceImpl implements UserService{
 
-    @Resource
+    @Autowired
     private UserDao userDao;
 
     public User queryUserByUserName(String userName) {

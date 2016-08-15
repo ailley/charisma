@@ -28,7 +28,7 @@ public class UserRealm extends AuthorizingRealm {
     /**
      * 登录认证
      *
-     * @param token
+     * @param authenticationToken
      * @return
      * @throws AuthenticationException
      */
@@ -36,7 +36,13 @@ public class UserRealm extends AuthorizingRealm {
         //UsernamePasswordToken对象用来存放提交的登录信息
         UsernamePasswordToken token=(UsernamePasswordToken) authenticationToken;
         //查出是否有此用户
-        User user=userService.queryUserByUserName(token.getUsername());
+        User user = null;
+        try {
+            user=userService.queryUserByUserName(token.getUsername());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         if (user == null) {
             throw new UnknownAccountException();// 没找到帐号
         }

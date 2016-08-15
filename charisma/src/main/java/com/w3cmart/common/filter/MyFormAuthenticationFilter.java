@@ -54,7 +54,7 @@ public class MyFormAuthenticationFilter extends FormAuthenticationFilter {
 	                WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();  
 	                ServletContext servletContext = webApplicationContext.getServletContext(); 
 	                String contextPath = servletContext.getContextPath();
-	                out.println("<script>window.top.location.href='"+contextPath+"/pages/jsp/login.jsp"+"'</script>");   
+	                out.println("<script>window.top.location.href='"+contextPath+"/login.htm"+"'</script>");
 	                out.flush();  
 	                out.close();  
 	            } else {  

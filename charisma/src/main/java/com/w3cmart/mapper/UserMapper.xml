@@ -263,6 +263,7 @@
       SELECT
       <include refid="Base_Column_List" />
       FROM  USER
-      WHERE user_name=#{userName}
+      WHERE
+      user_name=#{userName}
   </select>
 </mapper>
