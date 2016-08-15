@@ -259,4 +259,10 @@
       status = #{status,jdbcType=BIT,typeHandler=com.w3cmart.common.enums.StatusEnum}
     where uid = #{uid,jdbcType=BIGINT}
   </update>
+  <select id="queryUserByUserName" resultMap="BaseResultMap" parameterType="String">
+      SELECT
+      <include refid="Base_Column_List" />
+      FROM  USER
+      WHERE user_name=#{userName}
+  </select>
 </mapper>

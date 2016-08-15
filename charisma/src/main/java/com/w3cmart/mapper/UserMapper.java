@@ -7,6 +7,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper extends MapperSuper {
+
+    User queryUserByUserName(String userName);
+
     int countByExample(UserExample example);
 
     int deleteByExample(UserExample example);
