@@ -6,11 +6,11 @@
   <display-name>Archetype Created Web Application</display-name>
   <!-- Spring和mybatis的配置文件 -->
   <context-param>
-    <param-name>contextConfigLocation</param-name>
-    <param-value>
-      classpath:spring-mybatis.xml
-      classpath:spring-shiro.xml
-    </param-value>
+  <param-name>contextConfigLocation</param-name>
+  <param-value>
+  classpath:spring-mybatis.xml
+  classpath:spring-shiro.xml
+  </param-value>
   </context-param>
   <!-- Shiro配置 -->
   <filter>
@@ -50,7 +50,7 @@
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>classpath:spring-mvc.xml</param-value>
+      <param-value>classpath:spring-*.xml</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
     <async-supported>true</async-supported>

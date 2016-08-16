@@ -20,6 +20,19 @@
         <!-- 使用下面配置的缓存管理器 -->
         <property name="cacheManager" ref="cacheManager"/>
     </bean>
+
+    <!-- Realm实现  修改密码先清空AuthenticationInfo 调用Realm的clearCachedAuthenticationInfo方法
+		 修改用户或增加用户角色权限 调用Realm的clearCachedAuthorizationInfo方法 先清缓存
+		 可以用clearCache方法 全部都清空 如果有必要需要自己实现
+	-->
+    <bean id="userRealm" class="com.w3cmart.realm.UserRealm">
+        <!--<property name="cachingEnabled" value="true"/>-->
+        <!--<property name="authenticationCachingEnabled" value="true"/>&lt;!&ndash; 启用身份验证缓存 &ndash;&gt;-->
+        <!--<property name="authenticationCacheName" value="authenticationCache"/>&lt;!&ndash;缓存AuthenticationInfo信息的缓存名称&ndash;&gt;-->
+        <!--<property name="authorizationCachingEnabled" value="true"/>&lt;!&ndash;授权缓存&ndash;&gt;-->
+        <!--<property name="authorizationCacheName" value="authorizationCache"/>&lt;!&ndash; 缓存AuthorizationInfo信息的缓存名称&ndash;&gt;-->
+    </bean>
+
     <!-- 配置shiro的过滤器工厂类，id- shiroFilter要和我们在web.xml中配置的过滤器一致 -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <!-- 调用我们配置的权限管理器 -->
@@ -56,6 +69,9 @@
         <property name="loginUrl" value="/loginPC.do" />
         <property name="successUrl" value="/index.jsp" />
     </bean>
+
+    <!-- 配置shiro bean processor-->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
     <!-- 缓存管理器 -->
     <bean id="cacheManager" class="com.w3cmart.cache.SpringCacheManagerWrapper">
         <property name="cacheManager" ref="springCacheManager"/>
@@ -65,22 +81,9 @@
     </bean>
 
     <!--ehcache-->
-    <bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+    <bean id="ehcacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" p:shared="true">
         <property name="configLocation" value="classpath:ehcache.xml"/>
     </bean>
-    <!-- 配置shiro bean processor-->
-    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
 
-    <!-- Realm实现  修改密码先清空AuthenticationInfo 调用Realm的clearCachedAuthenticationInfo方法
-		 修改用户或增加用户角色权限 调用Realm的clearCachedAuthorizationInfo方法 先清缓存
-		 可以用clearCache方法 全部都清空 如果有必要需要自己实现
-	-->
-    <bean id="userRealm" class="com.w3cmart.realm.UserRealm">
-        <property name="cachingEnabled" value="true"/>
-        <property name="authenticationCachingEnabled" value="true"/><!-- 启用身份验证缓存 -->
-        <property name="authenticationCacheName" value="authenticationCache"/><!--缓存AuthenticationInfo信息的缓存名称-->
-        <property name="authorizationCachingEnabled" value="true"/><!--授权缓存-->
-        <property name="authorizationCacheName" value="authorizationCache"/><!-- 缓存AuthorizationInfo信息的缓存名称-->
-    </bean>
 
 </beans>

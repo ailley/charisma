@@ -47,5 +47,5 @@
         <!-- 内存中的最大值 -->
         <property name="maxInMemorySize" value="40960" />
     </bean>
-
+    <import resource="classpath:spring-mvc-shiro.xml"/>
 </beans>

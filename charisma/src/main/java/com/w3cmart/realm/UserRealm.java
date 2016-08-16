@@ -38,7 +38,7 @@ public class UserRealm extends AuthorizingRealm {
         //查出是否有此用户
         User user = null;
         try {
-            user=userService.queryUserByUserName(token.getUsername());
+            user=userService.queryUserByUserName(token.getUsername().toLowerCase());
         }catch (Exception e){
             e.printStackTrace();
         }

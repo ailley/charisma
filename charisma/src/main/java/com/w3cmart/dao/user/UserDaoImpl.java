@@ -5,14 +5,16 @@ import com.w3cmart.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
+
 
 /**
  * Created by Administrator on 2016/8/13.
  */
-@Repository
+
 public class UserDaoImpl implements UserDao{
 
-    @Autowired
+    @Resource
     private UserMapper userMapper;
 
     public User queryUserByUserName(String userName) {
