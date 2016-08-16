@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -5,7 +7,6 @@
   Time: 20:29
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -29,7 +30,14 @@
         <div class="row">
             <div class="well col-md-5 center login-box">
                 <div class="alert alert-info">
-                    Please login with your Username and Password.
+                    <c:choose>
+                        <c:when test="${error != null}">
+                            ${error}
+                        </c:when>
+                        <c:when test="${error == null}">
+                            Please login with your Username and Password.
+                        </c:when>
+                    </c:choose>
                 </div>
                 <form class="form-horizontal" action="<%=basePath%>loginPC.do" method="post">
                     <fieldset>

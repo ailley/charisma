@@ -42,4 +42,4 @@
 <!-- history.js for cross-browser state change on ajax -->
 <script src="<%=basePath%>static/js/jquery.history.js"></script>
 <!-- application script for Charisma demo -->
-<script src="<%=basePath%>js/charisma.js"></script>
+<script src="<%=basePath%>static/js/charisma.js"></script>

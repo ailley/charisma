@@ -40,12 +40,12 @@ $(document).ready(function () {
         switchTheme(currentTheme);
     });
 
-
+    //切换样式
     function switchTheme(themeName) {
         if (themeName == 'classic') {
-            $('#bs-css').attr('href', 'bower_components/bootstrap/dist/css/bootstrap.min.css');
+            $('#bs-css').attr('href', 'static/bower_components/bootstrap/dist/css/bootstrap.min.css');
         } else {
-            $('#bs-css').attr('href', 'css/bootstrap-' + themeName + '.min.css');
+            $('#bs-css').attr('href', 'static/css/bootstrap-' + themeName + '.min.css');
         }
 
         $('#themes i').removeClass('glyphicon glyphicon-ok whitespace').addClass('whitespace');

@@ -1,5 +1,6 @@
 package com.w3cmart.controller;
 
+import com.w3cmart.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -37,7 +38,6 @@ public class UserController {
         // 判断已经登录，跳转到index
         Subject subject = SecurityUtils.getSubject();
 
-
         if (subject.getPrincipal() != null) {
             try {
                 WebUtils.issueRedirect(request, response,
@@ -55,7 +55,7 @@ public class UserController {
                 exceptionClassName)) {
             error = "用户名/密码错误";
         } else if (exceptionClassName != null) {
-            error = "其他错误：" + exceptionClassName;
+            error = "服务器异常！请联系管理员" ;
         }
         model.addAttribute("error", error);
         return "login";
@@ -77,7 +77,7 @@ public class UserController {
         }
 
         try {
-            WebUtils.issueRedirect(req, response, "/pages/jsp/login.jsp");
+            WebUtils.issueRedirect(req, response, "login.htm");
         } catch (IOException e) {
             e.printStackTrace();
         }
