@@ -15,7 +15,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html"> <img alt="Charisma Logo" src="img/logo20.png" class="hidden-xs"/>
+        <a class="navbar-brand" href="index.htm"> <img alt="Charisma Logo" src="static/img/logo20.png" class="hidden-xs"/>
             <span>Charisma</span></a>
 
         <!-- user dropdown starts -->
@@ -91,7 +91,7 @@
                     </div>
                     <ul class="nav nav-pills nav-stacked main-menu">
                         <li class="nav-header">Main</li>
-                        <li><a class="ajax-link" href="index.html"><i class="glyphicon glyphicon-home"></i><span> Dashboard</span></a>
+                        <li><a class="ajax-link" href="index.jsp"><i class="glyphicon glyphicon-home"></i><span> Dashboard</span></a>
                         </li>
                         <li><a class="ajax-link" href="ui.html"><i class="glyphicon glyphicon-eye-open"></i><span> UI Features</span></a>
                         </li>
@@ -123,6 +123,9 @@
                         <li><a href="error.html"><i class="glyphicon glyphicon-ban-circle"></i><span> Error Page</span></a>
                         </li>
                         <li><a href="login.html"><i class="glyphicon glyphicon-lock"></i><span> Login Page</span></a>
+                        </li>
+                        </li>
+                        <li><a href="menu.htm"><i class="glyphicon glyphicon-lock"></i><span> 菜单管理</span></a>
                         </li>
                     </ul>
                     <label id="for-is-ajax" for="is-ajax"><input id="is-ajax" type="checkbox"> Ajax on menu</label>
@@ -337,7 +340,7 @@
                                     <li>
                                         <a href="#">
                                             <img class="dashboard-avatar" alt="Usman"
-                                                 src="http://www.gravatar.com/avatar/f0ea51fa1e4fae92608d8affee12f67b.png?s=50"></a>
+                                                 src=""></a>
                                         <strong>Name:</strong> <a href="#">Usman
                                     </a><br>
                                         <strong>Since:</strong> 17/05/2014<br>
@@ -346,7 +349,7 @@
                                     <li>
                                         <a href="#">
                                             <img class="dashboard-avatar" alt="Sheikh Heera"
-                                                 src="http://www.gravatar.com/avatar/3232415a0380253cfffe19163d04acab.png?s=50"></a>
+                                                 src=""></a>
                                         <strong>Name:</strong> <a href="#">Sheikh Heera
                                     </a><br>
                                         <strong>Since:</strong> 17/05/2014<br>
@@ -355,7 +358,7 @@
                                     <li>
                                         <a href="#">
                                             <img class="dashboard-avatar" alt="Abdullah"
-                                                 src="http://www.gravatar.com/avatar/46056f772bde7c536e2086004e300a04.png?s=50"></a>
+                                                 src=""></a>
                                         <strong>Name:</strong> <a href="#">Abdullah
                                     </a><br>
                                         <strong>Since:</strong> 25/05/2014<br>
@@ -364,7 +367,7 @@
                                     <li>
                                         <a href="#">
                                             <img class="dashboard-avatar" alt="Sana Amrin"
-                                                 src="http://www.gravatar.com/avatar/hash"></a>
+                                                 src=""></a>
                                         <strong>Name:</strong> <a href="#">Sana Amrin</a><br>
                                         <strong>Since:</strong> 17/05/2014<br>
                                         <strong>Status:</strong> <span class="label label-info">Updates</span>

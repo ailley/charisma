@@ -40,4 +40,4 @@
 <![endif]-->
 
 <!-- The fav icon -->
-<link rel="shortcut icon" href="<%=basePath%>img/favicon.ico">
+<link rel="shortcut icon" href="<%=basePath%>static/img/favicon.ico">
