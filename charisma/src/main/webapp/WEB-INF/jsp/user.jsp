@@ -105,21 +105,29 @@
                         </div>
                         <div class="box-content">
                             <div class="alert alert-info">For help with such table please check <a href="http://datatables.net/" target="_blank">http://datatables.net/</a></div>
-                            <table id="userInfo" class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                            <table id="userInfo" class="table table-striped  bootstrap-datatable datatable responsive">
                                 <thead>
-                                <tr>
-                                    <th>用户名</th>
-                                    <th>姓名</th>
-                                    <th>性别</th>
-                                    <th>QQ</th>
-                                    <th>邮箱</th>
-                                    <th>类别</th>
-                                    <th>状态</th>
-                                </tr>
+                                    <tr>
+                                        <th>用户名</th>
+                                        <th>姓名</th>
+                                        <th>性别</th>
+                                        <th>QQ</th>
+                                        <th>邮箱</th>
+                                        <th>类别</th>
+                                        <th>状态</th>
+                                    </tr>
                                 </thead>
-                                <tbody>
-
-                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>用户名</th>
+                                        <th>姓名</th>
+                                        <th>性别</th>
+                                        <th>QQ</th>
+                                        <th>邮箱</th>
+                                        <th>类别</th>
+                                        <th>状态</th>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
                     </div>
