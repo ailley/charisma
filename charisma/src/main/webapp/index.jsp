@@ -125,7 +125,12 @@
                         <li><a href="login.html"><i class="glyphicon glyphicon-lock"></i><span> Login Page</span></a>
                         </li>
                         </li>
-                        <li><a href="menu.htm"><i class="glyphicon glyphicon-lock"></i><span> 菜单管理</span></a>
+                        <li class="accordion">
+                            <a href="#"><i class="glyphicon glyphicon-list"></i><span> 系统管理</span></a>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="user.htm">用户管理</a></li>
+                                <li><a href="menu.htm">菜单管理</a></li>
+                            </ul>
                         </li>
                     </ul>
                     <label id="for-is-ajax" for="is-ajax"><input id="is-ajax" type="checkbox"> Ajax on menu</label>

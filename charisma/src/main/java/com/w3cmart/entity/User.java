@@ -1,6 +1,7 @@
 package com.w3cmart.entity;
 
 import com.h.common.admin.superpage.BeanSuper;
+import com.w3cmart.common.enums.StatusEnum;
 
 @SuppressWarnings("serial")
 public class User implements BeanSuper {
@@ -10,9 +11,9 @@ public class User implements BeanSuper {
 
     private String password;
 
-    private Integer type;
+    private Boolean type;
 
-    private Integer status;
+    private StatusEnum status;
 
     public Long getUid() {
         return uid;
@@ -38,19 +39,19 @@ public class User implements BeanSuper {
         this.password = password == null ? null : password.trim();
     }
 
-    public Integer getType() {
+    public Boolean getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(Boolean type) {
         this.type = type;
     }
 
-    public Integer getStatus() {
+    public StatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(StatusEnum status) {
         this.status = status;
     }
 

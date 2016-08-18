@@ -6,14 +6,17 @@ package com.w3cmart.common.enums;
 public enum StatusEnum
         implements ShowAble, ITypeEnum<StatusEnum, Byte>
 {
-    ENABLE((byte) 0, "有效"),
-    DISABLE((byte) 1, "无效");
+    ENABLE( 0, "有效"),
+    DISABLE(1, "无效");
 
-    public final byte value;
+    public final int value;
     public final String show;
 
-    StatusEnum(byte value, String show) { this.value = value;
-        this.show = show; }
+
+    StatusEnum(int value, String show) {
+        this.value = value;
+        this.show = show;
+    }
 
     public StatusEnum getEnumInstance(Byte value)
     {
@@ -27,4 +30,5 @@ public enum StatusEnum
     public String show() {
         return this.show;
     }
+
 }

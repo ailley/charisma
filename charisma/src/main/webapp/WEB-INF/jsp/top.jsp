@@ -31,9 +31,9 @@
 <link href='<%=basePath%>static/css/uploadify.css' rel='stylesheet'>
 <link href='<%=basePath%>static/css/animate.min.css' rel='stylesheet'>
 
+
 <!-- jQuery -->
 <script src="<%=basePath%>static/bower_components/jquery/jquery.min.js"></script>
-
 <!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

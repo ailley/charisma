@@ -7,8 +7,12 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-@Repository("userMapper")
+import java.util.Map;
+
+@Repository
 public interface UserMapper extends MapperSuper {
+
+    List<Map<String,Object>> selectUserInfo();
 
     User queryUserByUserName(String userName);
 
