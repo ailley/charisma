@@ -105,7 +105,7 @@
                         </div>
                         <div class="box-content">
                             <div class="alert alert-info">For help with such table please check <a href="http://datatables.net/" target="_blank">http://datatables.net/</a></div>
-                            <table id="userInfo" class="table table-striped  bootstrap-datatable datatable responsive">
+                            <table id="userInfo" class="table table-striped table-bordered  bootstrap-datatable datatable responsive" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
                                         <th>用户名</th>
@@ -170,9 +170,11 @@
 
 <script>
     $(document).ready(function () {
-        alert(1)
         $('#userInfo').DataTable({
-            "sAjaxSource":"selectUserInfo.do",
+//            "pagingType": "full_numbers",//首页 末页
+            "ajax":"selectUserInfo.do",//ajax请求后台JSON数据
+             "sDom": "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
+             "sPaginationType": "bootstrap",
             "columns": [
                 { "data": "userName" },
                 { "data": "name" },

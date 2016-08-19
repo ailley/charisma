@@ -29,6 +29,7 @@
 <link href='<%=basePath%>static/css/elfinder.theme.css' rel='stylesheet'>
 <link href='<%=basePath%>static/css/jquery.iphone.toggle.css' rel='stylesheet'>
 <link href='<%=basePath%>static/css/uploadify.css' rel='stylesheet'>
+<link href='<%=basePath%>static/css/jquery.dataTables.min.css' rel='stylesheet'>
 <link href='<%=basePath%>static/css/animate.min.css' rel='stylesheet'>
 
 
