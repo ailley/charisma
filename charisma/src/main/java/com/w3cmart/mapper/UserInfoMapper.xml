@@ -6,10 +6,10 @@
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="qq" property="qq" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
-    <result column="gender" property="gender" jdbcType="BIT" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
     <result column="head" property="head" jdbcType="VARCHAR" />
     <result column="note" property="note" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="BIT" typeHandler="com.w3cmart.common.enums.StatusEnumHandler" />
+    <result column="status" property="status" jdbcType="INTEGER" typeHandler="com.w3cmart.common.enums.StatusEnumHandler" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -143,11 +143,13 @@
   </delete>
   <insert id="insert" parameterType="com.w3cmart.entity.UserInfo" >
     insert into user_info (uid, name, qq, 
-      email, gender, head, note, 
-      status)
+      email, gender, head, 
+      note, status
+      )
     values (#{uid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{gender,jdbcType=BIT}, #{head,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, 
-      #{status,jdbcType=BIT,typeHandler=com.w3cmart.common.enums.StatusEnumHandler})
+      #{email,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{head,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER,typeHandler=com.w3cmart.common.enums.StatusEnumHandler}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.w3cmart.entity.UserInfo" >
     insert into user_info
@@ -191,7 +193,7 @@
         #{email,jdbcType=VARCHAR},
       </if>
       <if test="gender != null" >
-        #{gender,jdbcType=BIT},
+        #{gender,jdbcType=INTEGER},
       </if>
       <if test="head != null" >
         #{head,jdbcType=VARCHAR},
@@ -200,7 +202,7 @@
         #{note,jdbcType=VARCHAR},
       </if>
       <if test="status != null" >
-        #{status,jdbcType=BIT,typeHandler=com.w3cmart.common.enums.StatusEnumHandler},
+        #{status,jdbcType=INTEGER,typeHandler=com.w3cmart.common.enums.StatusEnumHandler},
       </if>
     </trim>
   </insert>
@@ -226,7 +228,7 @@
         email = #{record.email,jdbcType=VARCHAR},
       </if>
       <if test="record.gender != null" >
-        gender = #{record.gender,jdbcType=BIT},
+        gender = #{record.gender,jdbcType=INTEGER},
       </if>
       <if test="record.head != null" >
         head = #{record.head,jdbcType=VARCHAR},
@@ -235,7 +237,7 @@
         note = #{record.note,jdbcType=VARCHAR},
       </if>
       <if test="record.status != null" >
-        status = #{record.status,jdbcType=BIT,typeHandler=com.w3cmart.common.enums.StatusEnumHandler},
+        status = #{record.status,jdbcType=INTEGER,typeHandler=com.w3cmart.common.enums.StatusEnumHandler},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -248,10 +250,10 @@
       name = #{record.name,jdbcType=VARCHAR},
       qq = #{record.qq,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
-      gender = #{record.gender,jdbcType=BIT},
+      gender = #{record.gender,jdbcType=INTEGER},
       head = #{record.head,jdbcType=VARCHAR},
       note = #{record.note,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=BIT,typeHandler=com.w3cmart.common.enums.StatusEnumHandler}
+      status = #{record.status,jdbcType=INTEGER,typeHandler=com.w3cmart.common.enums.StatusEnumHandler}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>

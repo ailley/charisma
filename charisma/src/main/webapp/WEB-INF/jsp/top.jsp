@@ -30,6 +30,9 @@
 <link href='<%=basePath%>static/css/jquery.iphone.toggle.css' rel='stylesheet'>
 <link href='<%=basePath%>static/css/uploadify.css' rel='stylesheet'>
 <link href='<%=basePath%>static/css/jquery.dataTables.min.css' rel='stylesheet'>
+<link href='<%=basePath%>static/css/buttons.dataTables.min.css' rel='stylesheet'>
+<link href='<%=basePath%>static/css/select.dataTables.min.css' rel='stylesheet'>
+<link href='<%=basePath%>static/css/editor.dataTables.min.css' rel='stylesheet'>
 <link href='<%=basePath%>static/css/animate.min.css' rel='stylesheet'>
 
 

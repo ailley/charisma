@@ -18,8 +18,6 @@
 <!-- calender plugin -->
 <script src='<%=basePath%>static/bower_components/moment/min/moment.min.js'></script>
 <script src='<%=basePath%>static/bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
-<!-- data table plugin -->
-<script src='<%=basePath%>static/js/jquery.dataTables.min.js'></script>
 
 <!-- select or dropdown enhancer -->
 <script src="<%=basePath%>static/bower_components/chosen/chosen.jquery.min.js"></script>
@@ -41,5 +39,10 @@
 <script src="<%=basePath%>static/js/jquery.uploadify-3.1.min.js"></script>
 <!-- history.js for cross-browser state change on ajax -->
 <script src="<%=basePath%>static/js/jquery.history.js"></script>
+<!-- data table plugin -->
+<script src='<%=basePath%>static/js/jquery.dataTables.min.js'></script>
+<script src='<%=basePath%>static/js/dataTables.buttons.min.js'></script>
+<script src='<%=basePath%>static/js/dataTables.select.min.js'></script>
+<script src='<%=basePath%>static/js/dataTables.editor.min.js'></script>
 <!-- application script for Charisma demo -->
 <script src="<%=basePath%>static/js/charisma.js"></script>

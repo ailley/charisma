@@ -105,7 +105,7 @@
                         </div>
                         <div class="box-content">
                             <div class="alert alert-info">For help with such table please check <a href="http://datatables.net/" target="_blank">http://datatables.net/</a></div>
-                            <table id="userInfo" class="table table-striped table-bordered  bootstrap-datatable datatable responsive" cellspacing="0" width="100%">
+                            <table id="userInfo" class="display" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
                                         <th>用户名</th>
@@ -169,20 +169,105 @@
 <jsp:include page="down.jsp"/>
 
 <script>
+    var editor;
+
     $(document).ready(function () {
+
+        editor = new $.fn.dataTable.Editor( {
+            "ajax":"selectUserInfo.do",
+            "table": "#userInfo",
+            "idSrc": "uid",
+            "fields": [ {
+                label: "用户名:",
+                name: "userName",
+            }, {
+                label: "姓名:",
+                name: "name",
+            }, {
+                label: "性别",
+                name: "gender",
+            }, {
+                label: "QQ:",
+                name: "qq",
+            }, {
+                label: "邮箱：",
+                name: "email",
+            }, {
+                label: "类别：",
+                name: "type",
+                type: "datetime"
+            }
+            ],
+            i18n: {
+                create: {
+                    button: "新增",
+                    title:  "创建用户",
+                    submit: "新增"
+                },
+                edit: {
+                    button: "修改",
+                    title:  "修改用户",
+                    submit: "修改"
+                },
+                remove: {
+                    button: "删除",
+                    title:  "删除用户",
+                    submit: "删除",
+                    confirm: {
+                        _: "你确定要删除这%d条数据吗?",
+                        1: "您确定要删除这条数据吗?"
+                    }
+                },
+                error: {
+                    system: "操作失败，请与系统管理员"
+                },
+                multi: {
+                    title: "Plusieurs valeurs",
+                    info: "Les éléments sélectionnés contiennent des valeurs différentes pour cette entrée. Pour modifier et mettre tous les éléments pour cette entrée pour la même valeur, cliquez ou appuyez ici, sinon ils vont conserver leurs valeurs individuelles.",
+                    restore: "取消更改"
+                },
+                datetime: {
+                    previous: '<——',
+                    next:     '——>',
+                    months:   [ '1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月' ],
+                    weekdays: [ '周日', '周一', '周二', '周三', '周四', '周五', '周六' ]
+                }
+            }
+        } );
+
+
         $('#userInfo').DataTable({
+            dom: "Bfrtip",
 //            "pagingType": "full_numbers",//首页 末页
             "ajax":"selectUserInfo.do",//ajax请求后台JSON数据
-             "sDom": "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
-             "sPaginationType": "bootstrap",
+//             "sDom": "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
+//             "sPaginationType": "bootstrap",
             "columns": [
                 { "data": "userName" },
                 { "data": "name" },
-                { "data": "gender" },
+                { "data": "gender" ,
+                    render:function (data, type, row) {
+                        if(data.type){return "女"}else{return "男"}
+                    }
+                },
                 { "data": "qq" },
                 { "data": "email" },
-                { "data": "type" },
-                { "data": "status" },
+                { "data": "type" ,
+                    render:function (data, type, row) {
+                        if(data.type){return "一般用户"}else{return "系统用户"}
+                    }
+                },
+                { "data": "status" ,
+                    render:function (data, type, row) {
+                        if(data.status){return "无效"}else{return "有效"}
+                    }
+                },
+            ],
+            "select": true,
+            "buttons": [
+                { extend: "create", editor: editor },
+                { extend: "edit",   editor: editor },
+                { extend: "remove", editor: editor },
             ],
             "oLanguage": {  //对表格国际化
                 "sLengthMenu": "每页显示 _MENU_条",

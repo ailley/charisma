@@ -13,7 +13,7 @@ public class UserInfo implements BeanSuper {
 
     private String email;
 
-    private Boolean gender;
+    private Integer gender;
 
     private String head;
 
@@ -53,11 +53,11 @@ public class UserInfo implements BeanSuper {
         this.email = email == null ? null : email.trim();
     }
 
-    public Boolean getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(Boolean gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 

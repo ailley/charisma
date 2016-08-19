@@ -11,7 +11,7 @@ public class User implements BeanSuper {
 
     private String password;
 
-    private Boolean type;
+    private Integer type;
 
     private StatusEnum status;
 
@@ -39,11 +39,11 @@ public class User implements BeanSuper {
         this.password = password == null ? null : password.trim();
     }
 
-    public Boolean getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(Boolean type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
