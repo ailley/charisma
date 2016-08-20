@@ -16,5 +16,11 @@ public interface UserService {
      */
     User queryUserByUserName(String userName);
 
+    /**
+     * 查询所有用户信息
+     * @return
+     */
     List<Map<String,Object>> selectUserInfo();
+
+    int insert(User user);
 }

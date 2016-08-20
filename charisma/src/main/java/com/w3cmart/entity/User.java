@@ -15,6 +15,8 @@ public class User implements BeanSuper {
 
     private StatusEnum status;
 
+    private UserInfo userInfo;
+
     public Long getUid() {
         return uid;
     }
@@ -55,7 +57,15 @@ public class User implements BeanSuper {
         this.status = status;
     }
 
-    /** 
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
+
+    /**
      * 拷贝，将对象中的字段全部拷贝到子对象中
      * @param bean 接收对象的子类
      * @return 拷贝完成后的子类

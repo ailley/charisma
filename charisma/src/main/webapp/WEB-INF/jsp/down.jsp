@@ -41,8 +41,5 @@
 <script src="<%=basePath%>static/js/jquery.history.js"></script>
 <!-- data table plugin -->
 <script src='<%=basePath%>static/js/jquery.dataTables.min.js'></script>
-<script src='<%=basePath%>static/js/dataTables.buttons.min.js'></script>
-<script src='<%=basePath%>static/js/dataTables.select.min.js'></script>
-<script src='<%=basePath%>static/js/dataTables.editor.min.js'></script>
 <!-- application script for Charisma demo -->
 <script src="<%=basePath%>static/js/charisma.js"></script>
