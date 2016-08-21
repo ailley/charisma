@@ -2,37 +2,30 @@ package com.w3cmart.mapper;
 
 import com.h.common.admin.superpage.MapperSuper;
 import com.w3cmart.entity.User;
-import com.w3cmart.entity.UserExample;
+import com.w3cmart.entity.UserCriteria;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
-
 @Repository
 public interface UserMapper extends MapperSuper {
+    int countByExample(UserCriteria example);
 
-    List<Map<String,Object>> selectUserInfo();
+    int deleteByExample(UserCriteria example);
 
-    User queryUserByUserName(String userName);
-
-    int countByExample(UserExample example);
-
-    int deleteByExample(UserExample example);
-
-    int deleteByPrimaryKey(Long uid);
+    int deleteByPrimaryKey(Long id);
 
     int insert(User record);
 
     int insertSelective(User record);
 
-    List<User> selectByExample(UserExample example);
+    List<User> selectByExample(UserCriteria example);
 
-    User selectByPrimaryKey(Long uid);
+    User selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
+    int updateByExampleSelective(@Param("record") User record, @Param("example") UserCriteria example);
 
-    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
+    int updateByExample(@Param("record") User record, @Param("example") UserCriteria example);
 
     int updateByPrimaryKeySelective(User record);
 

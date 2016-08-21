@@ -1,14 +1,15 @@
 package com.w3cmart.controller;
 
+import com.w3cmart.common.enums.StatusEnum;
+import com.w3cmart.common.util.UUIDGenerator;
 import com.w3cmart.entity.User;
+import com.w3cmart.entity.UserCriteria;
 import com.w3cmart.service.user.UserService;
-import org.omg.CORBA.Object;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,16 +30,19 @@ public class UserController {
 
     @RequestMapping("selectUserInfo")
     @ResponseBody
-    public Map<String,List<Map<String, java.lang.Object>>> selectUserInfo(){
-        Map<String, List<Map<String, java.lang.Object>>> map = new HashMap<String, List<Map<String, java.lang.Object>>>();
-        map.put("data",userService.selectUserInfo());
+    public Map<String,List<User>> selectUserInfo(){
+        Map<String, List<User>> map = new HashMap<String, List<User>>();
+        UserCriteria userCriteria = new UserCriteria();
+        map.put("data",userService.selectByExample(userCriteria));
         return map;
     }
-    @RequestMapping("insertUser")
+    @RequestMapping("updatetUser")
     @ResponseBody
-    public int insertUser(HttpServletRequest request){
-        String action = request.getParameter("action");
+    public int insertUser(User user){
+        user.setUid(UUIDGenerator.generate(user));
+        user.setStatus(StatusEnum.ENABLE);
+        user.setCreateTime(System.currentTimeMillis());
+        userService.update(user);
         return 1;
-//        userService.insert(user);
     }
 }

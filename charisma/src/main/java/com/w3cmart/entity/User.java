@@ -5,24 +5,48 @@ import com.w3cmart.common.enums.StatusEnum;
 
 @SuppressWarnings("serial")
 public class User implements BeanSuper {
-    private Long uid;
+    private Long id;
+
+    private String uid;
 
     private String userName;
 
     private String password;
 
+    private String name;
+
     private Integer type;
+
+    private String qq;
+
+    private String email;
+
+    private Integer gender;
+
+    private String head;
+
+    private String note;
+
+    private Long createTime;
+
+    private Long updateTime;
 
     private StatusEnum status;
 
-    private UserInfo userInfo;
+    public Long getId() {
+        return id;
+    }
 
-    public Long getUid() {
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUid() {
         return uid;
     }
 
-    public void setUid(Long uid) {
-        this.uid = uid;
+    public void setUid(String uid) {
+        this.uid = uid == null ? null : uid.trim();
     }
 
     public String getUserName() {
@@ -41,12 +65,76 @@ public class User implements BeanSuper {
         this.password = password == null ? null : password.trim();
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
+    }
+
     public Integer getType() {
         return type;
     }
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public String getQq() {
+        return qq;
+    }
+
+    public void setQq(String qq) {
+        this.qq = qq == null ? null : qq.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
+    public String getHead() {
+        return head;
+    }
+
+    public void setHead(String head) {
+        this.head = head == null ? null : head.trim();
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note == null ? null : note.trim();
+    }
+
+    public Long getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Long createTime) {
+        this.createTime = createTime;
+    }
+
+    public Long getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Long updateTime) {
+        this.updateTime = updateTime;
     }
 
     public StatusEnum getStatus() {
@@ -57,24 +145,25 @@ public class User implements BeanSuper {
         this.status = status;
     }
 
-    public UserInfo getUserInfo() {
-        return userInfo;
-    }
-
-    public void setUserInfo(UserInfo userInfo) {
-        this.userInfo = userInfo;
-    }
-
-    /**
+    /** 
      * 拷贝，将对象中的字段全部拷贝到子对象中
      * @param bean 接收对象的子类
      * @return 拷贝完成后的子类
      */ 
     public  <T extends User> T copy(T bean) {
+        bean.setId(getId());
         bean.setUid(getUid());
         bean.setUserName(getUserName());
         bean.setPassword(getPassword());
+        bean.setName(getName());
         bean.setType(getType());
+        bean.setQq(getQq());
+        bean.setEmail(getEmail());
+        bean.setGender(getGender());
+        bean.setHead(getHead());
+        bean.setNote(getNote());
+        bean.setCreateTime(getCreateTime());
+        bean.setUpdateTime(getUpdateTime());
         bean.setStatus(getStatus());
         return bean;
     }
@@ -85,10 +174,19 @@ public class User implements BeanSuper {
     @Override
     public String toString() {
         return "{" + 
+        	", id:" + getId() + 
         	", uid:" + getUid() + 
         	", userName:" + getUserName() + 
         	", password:" + getPassword() + 
+        	", name:" + getName() + 
         	", type:" + getType() + 
+        	", qq:" + getQq() + 
+        	", email:" + getEmail() + 
+        	", gender:" + getGender() + 
+        	", head:" + getHead() + 
+        	", note:" + getNote() + 
+        	", createTime:" + getCreateTime() + 
+        	", updateTime:" + getUpdateTime() + 
         	", status:" + getStatus() + 
         "}";
     }

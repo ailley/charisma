@@ -32,6 +32,7 @@
 <link href='<%=basePath%>static/css/jquery.dataTables.min.css' rel='stylesheet'>
 <link href='<%=basePath%>static/css/responsive.dataTables.min.css' rel='stylesheet'>
 <link href='<%=basePath%>static/css/animate.min.css' rel='stylesheet'>
+<link href='<%=basePath%>static/css/bootstrapValidator.min.css' rel='stylesheet'>
 
 
 <!-- jQuery -->

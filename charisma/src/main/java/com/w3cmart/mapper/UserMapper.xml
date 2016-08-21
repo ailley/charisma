@@ -2,10 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.w3cmart.mapper.UserMapper" >
   <resultMap id="BaseResultMap" type="com.w3cmart.entity.User" >
-    <id column="uid" property="uid" jdbcType="BIGINT" />
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="uid" property="uid" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="head" property="head" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="BIGINT" />
     <result column="status" property="status" jdbcType="INTEGER" typeHandler="com.w3cmart.common.enums.StatusEnumHandler" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -105,9 +114,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    uid, user_name, password, type, status
+    id, uid, user_name, password, name, type, qq, email, gender, head, note, create_time, 
+    update_time, status
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.w3cmart.entity.UserExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.w3cmart.entity.UserCriteria" >
     select
     <if test="distinct" >
       distinct
@@ -136,29 +146,38 @@
     select 
     <include refid="Base_Column_List" />
     from user
-    where uid = #{uid,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from user
-    where uid = #{uid,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.w3cmart.entity.UserExample" >
+  <delete id="deleteByExample" parameterType="com.w3cmart.entity.UserCriteria" >
     delete from user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.w3cmart.entity.User" >
-    insert into user (uid, user_name, password, 
-      type, status
+    insert into user (id, uid, user_name, 
+      password, name, type, 
+      qq, email, gender, 
+      head, note, create_time, 
+      update_time, status
       )
-    values (#{uid,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER,typeHandler=com.w3cmart.common.enums.StatusEnumHandler}
+    values (#{id,jdbcType=BIGINT}, #{uid,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{qq,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
+      #{head,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT}, #{status,jdbcType=INTEGER,typeHandler=com.w3cmart.common.enums.StatusEnumHandler}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.w3cmart.entity.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
       <if test="uid != null" >
         uid,
       </if>
@@ -168,16 +187,43 @@
       <if test="password != null" >
         password,
       </if>
+      <if test="name != null" >
+        name,
+      </if>
       <if test="type != null" >
         type,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="head != null" >
+        head,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
       </if>
       <if test="status != null" >
         status,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
       <if test="uid != null" >
-        #{uid,jdbcType=BIGINT},
+        #{uid,jdbcType=VARCHAR},
       </if>
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
@@ -185,15 +231,39 @@
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
       </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
       <if test="type != null" >
         #{type,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="head != null" >
+        #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=BIGINT},
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER,typeHandler=com.w3cmart.common.enums.StatusEnumHandler},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.w3cmart.entity.UserExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.w3cmart.entity.UserCriteria" resultType="java.lang.Integer" >
     select count(*) from user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -202,8 +272,11 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update user
     <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
       <if test="record.uid != null" >
-        uid = #{record.uid,jdbcType=BIGINT},
+        uid = #{record.uid,jdbcType=VARCHAR},
       </if>
       <if test="record.userName != null" >
         user_name = #{record.userName,jdbcType=VARCHAR},
@@ -211,8 +284,32 @@
       <if test="record.password != null" >
         password = #{record.password,jdbcType=VARCHAR},
       </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
       <if test="record.type != null" >
         type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.qq != null" >
+        qq = #{record.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null" >
+        gender = #{record.gender,jdbcType=INTEGER},
+      </if>
+      <if test="record.head != null" >
+        head = #{record.head,jdbcType=VARCHAR},
+      </if>
+      <if test="record.note != null" >
+        note = #{record.note,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=BIGINT},
       </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER,typeHandler=com.w3cmart.common.enums.StatusEnumHandler},
@@ -224,10 +321,19 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update user
-    set uid = #{record.uid,jdbcType=BIGINT},
+    set id = #{record.id,jdbcType=BIGINT},
+      uid = #{record.uid,jdbcType=VARCHAR},
       user_name = #{record.userName,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=INTEGER},
+      qq = #{record.qq,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=INTEGER},
+      head = #{record.head,jdbcType=VARCHAR},
+      note = #{record.note,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=BIGINT},
+      update_time = #{record.updateTime,jdbcType=BIGINT},
       status = #{record.status,jdbcType=INTEGER,typeHandler=com.w3cmart.common.enums.StatusEnumHandler}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -236,50 +342,63 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.w3cmart.entity.User" >
     update user
     <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=VARCHAR},
+      </if>
       <if test="userName != null" >
         user_name = #{userName,jdbcType=VARCHAR},
       </if>
       <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
       </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
       <if test="type != null" >
         type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="head != null" >
+        head = #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=BIGINT},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER,typeHandler=com.w3cmart.common.enums.StatusEnumHandler},
       </if>
     </set>
-    where uid = #{uid,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.w3cmart.entity.User" >
     update user
-    set user_name = #{userName,jdbcType=VARCHAR},
+    set uid = #{uid,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
       type = #{type,jdbcType=INTEGER},
+      qq = #{qq,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      head = #{head,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
       status = #{status,jdbcType=INTEGER,typeHandler=com.w3cmart.common.enums.StatusEnumHandler}
-    where uid = #{uid,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="queryUserByUserName" resultMap="BaseResultMap" parameterType="String">
-    SELECT
-    <include refid="Base_Column_List" />
-    FROM  USER
-    WHERE
-    user_name=#{userName}
-  </select>
-  <select id="selectUserInfo" resultType="map">
-    SELECT
-        u.uid,
-        u.user_name userName,
-        i. name,
-        i.gender,
-        i.qq,
-        i.email,
-        u.type,
-        u.`status`
-    FROM
-        USER u,
-        user_info i
-    WHERE
-        u.uid = i.uid
-  </select>
 </mapper>

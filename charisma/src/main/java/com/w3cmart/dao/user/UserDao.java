@@ -7,5 +7,5 @@ import com.w3cmart.entity.User;
  */
 public interface UserDao {
 
-    User queryUserByUserName(String userName);
+
 }

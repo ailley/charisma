@@ -20,7 +20,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.htm"> <img alt="Charisma Logo" src="<%=basePath%>static/img/logo20.png" class="hidden-xs"/>
+        <a class="navbar-brand" href="index.jsp"> <img alt="Charisma Logo" src="<%=basePath%>static/img/logo20.png" class="hidden-xs"/>
             <span>Charisma</span></a>
 
         <!-- user dropdown starts -->

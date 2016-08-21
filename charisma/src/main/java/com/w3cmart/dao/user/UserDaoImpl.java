@@ -17,7 +17,4 @@ public class UserDaoImpl implements UserDao{
     @Resource
     private UserMapper userMapper;
 
-    public User queryUserByUserName(String userName) {
-        return userMapper.queryUserByUserName(userName);
-    }
 }

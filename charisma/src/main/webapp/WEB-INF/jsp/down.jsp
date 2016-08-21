@@ -43,3 +43,5 @@
 <script src='<%=basePath%>static/js/jquery.dataTables.min.js'></script>
 <!-- application script for Charisma demo -->
 <script src="<%=basePath%>static/js/charisma.js"></script>
+<!-- BootstrapValidator plugin-->
+<script src="<%=basePath%>static/js/bootstrapValidator.min.js"></script>
