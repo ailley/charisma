@@ -10,6 +10,21 @@
 <head>
     <title>菜单</title>
     <jsp:include page="top.jsp"/>
+    <style>
+        #add{
+            position: absolute;
+            left: 168px;
+            top: 108px;
+        }
+        @media  screen and (max-width: 639px){
+            #add {
+                position: static;
+                display: block;
+                margin: 5px auto;
+
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -57,6 +72,7 @@
                         </div>
                         <div class="box-content">
                             <div class="alert alert-info">For help with such table please check <a href="http://datatables.net/" target="_blank">http://datatables.net/</a></div>
+                            <button class="btn btn-primary btn-position-table" id="add" type="button"><i class="glyphicon glyphicon-trash icon-white"></i> 添加</button>
                             <table id="userInfo" class="table table-striped table-bordered bootstrap-datatable datatable responsive" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
@@ -169,6 +185,7 @@
 
 <script>
     var table ;
+    var url ;
     $(document).ready(function () {
 
          table = $('#userInfo').DataTable({
@@ -202,11 +219,11 @@
                 },
                 {   "data":"",
                     render:function (data, type, row) {
-                        return '<a class="btn btn-success" href="#">'+
+                        return '<a class="btn btn-success" id="select">'+
                         '<i class="glyphicon glyphicon-zoom-in icon-white"></i>'+
                                 '查询'+
                                ' </a>'+
-                                '<a class="btn btn-info" onclick="dataEdit()">'+
+                                '<a class="btn btn-info" id="edit">'+
                                 '<i class="glyphicon glyphicon-edit icon-white"></i>'+
                                 '修改'+
                                ' </a>'+
@@ -310,42 +327,76 @@
                 },
             }
         });
-
+        $('#userInfo tbody').on( 'click', 'a#select', function () {
+            var data = $('#userInfo').DataTable().row($(this).parents('tr')).data();
+            formReading(data,"查询用户");
+            $("form  :input").attr("disabled",true);
+            $('#save').attr("disabled",true);
+        });
+        $('#userInfo tbody').on( 'click', 'a#edit', function () {
+            $("form  :input").attr("disabled",false);
+            $('#save').attr("disabled",false);
+            url='updatetUser.do';
+            var data = $('#userInfo').DataTable().row($(this).parents('tr')).data();
+            formReading(data,"修改用户");
+        } );
+        $('#save').click(function() {
+//         $('#userForm').bootstrapValidator('validate');
+            var bootstrapValidator = $("#userForm").data('bootstrapValidator');
+            bootstrapValidator.validate();
+            if(!bootstrapValidator.isValid())return ;
+            $.post(url, $('#userForm').serialize(), function(result) {
+                alert(result);
+            }, 'json');
+        });
+        function formReading(data,title){
+            $('#userForm')[0].reset();//清空表单
+            $('#form-title').html(title);//设置标题
+            $('#userName').val(data.userName);
+            $('#name').val(data.name);
+            if(data.gender==0){
+                $('#m-gender').attr("checked",false);
+                $('#w-gender').attr("checked",true);
+            }else{
+                $('#m-gender').attr("checked",true);
+                $('#w-gender').attr("checked",false);
+            }
+            $('input[name=gender][value='+data.gender+']').attr("checked",true);
+            $('#qq').val(data.qq);
+            $('#email').val(data.email);
+            $('#type').val(data.type);
+            $('#myModal').modal("show"); //模态框显示
+        }
     });
-    function dataEdit() {
+//    function dataEdit() {
 //        $(':input','#userForm')
 //                .not(':button, :submit, :reset, :hidden')
 //                .val('')
 //                .removeAttr('checked')
 //                .removeAttr('selected');
-        $('#userForm')[0].reset();//清空表单
-        $('#form-title').html("修改用户");//设置标题
-        //表单赋值
-        $('#userInfo tbody').on('click', 'tr', function () {
-            console.log(this);
-            var row = table.row( this ).data();
-            $('#userName').val(row.userName);
-            $('#name').val(row.name);
-            $('input[name="gender"][value='+row.gender+']').attr("checked",true);
-            $('#qq').val(row.qq);
-            $('#email').val(row.email);
-            $('#type').val(row.type);
-        } );
-        $('#myModal').on('hidden.bs.modal', function (e) {
-            num=0;
-        })
 
-        $('#myModal').modal("show"); //模态框显示
-        $('#save').click(function() {
-//            $('#userForm').bootstrapValidator('validate');
-            var bootstrapValidator = $("#userForm").data('bootstrapValidator');
-            bootstrapValidator.validate();
-            if(!bootstrapValidator.isValid())return ;
-            $.post('updatetUser.do', $('#userForm').serialize(), function(result) {
-                alert(result);
-            }, 'json');
-        });
-    }
+//        $("#userInfo tbody tr").click(function(e){
+//            var index = $(this).context._DT_RowIndex; //行号
+//            var row = table.row( index );
+//            console.log(row.data());
+//        });
+        //表单赋值
+//        $('#userInfo tbody').on('click', 'tr', function () {
+////            console.log(this);
+//            var row = table.row( this ).data();
+//            $('#userName').val(row.userName);
+//            $('#name').val(row.name);
+//            $('input[name="gender"][value='+row.gender+']').attr("checked",true);
+//            $('#qq').val(row.qq);
+//            $('#email').val(row.email);
+//            $('#type').val(row.type);
+//        } );
+//        $('#myModal').on('hidden.bs.modal', function (e) {
+//            num=0;
+//        })
+
+
+//    }
 
 </script>
 </body>
