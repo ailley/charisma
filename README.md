@@ -13,9 +13,9 @@
 
 例如:
     
-    [DataTables](https://github.com/DataTables/DataTables)
+[DataTables](https://github.com/DataTables/DataTables)
     
-    [BootstrapValidator](http://bv.doc.javake.cn/api/)
+[BootstrapValidator](http://bv.doc.javake.cn/api/)
     
 ##有问题反馈
 
