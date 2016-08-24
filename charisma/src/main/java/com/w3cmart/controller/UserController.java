@@ -2,6 +2,7 @@ package com.w3cmart.controller;
 
 import com.w3cmart.common.enums.StatusEnum;
 import com.w3cmart.common.util.UUIDGenerator;
+import com.w3cmart.common.util.ViewResult;
 import com.w3cmart.entity.User;
 import com.w3cmart.entity.UserCriteria;
 import com.w3cmart.service.user.UserService;
@@ -36,13 +37,31 @@ public class UserController {
         map.put("data",userService.selectByExample(userCriteria));
         return map;
     }
-    @RequestMapping("updatetUser")
+    @RequestMapping("insertUser")
     @ResponseBody
-    public int insertUser(User user){
+    public String insertUser(User user){
         user.setUid(UUIDGenerator.generate(user));
         user.setStatus(StatusEnum.ENABLE);
+        user.setPassword("123456");
         user.setCreateTime(System.currentTimeMillis());
+        userService.insert(user);
+        return ViewResult.newInstance().json();
+    }
+    @RequestMapping("updatetUser")
+    @ResponseBody
+    public String updateUser(User user){
+        user.setUpdateTime(System.currentTimeMillis());
         userService.update(user);
-        return 1;
+
+        return ViewResult.newInstance().json();
+    }
+    @RequestMapping("deleteUser")
+    @ResponseBody
+    public String deleteUser(Long id){
+        User user = new User();
+        user.setId(id);
+        user.setStatus(StatusEnum.DISABLE);
+        userService.update(user);
+        return ViewResult.newInstance().json();
     }
 }

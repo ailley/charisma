@@ -45,3 +45,4 @@
 <script src="<%=basePath%>static/js/charisma.js"></script>
 <!-- BootstrapValidator plugin-->
 <script src="<%=basePath%>static/js/bootstrapValidator.min.js"></script>
+

@@ -15,6 +15,7 @@
             position: absolute;
             left: 168px;
             top: 108px;
+            z-index: 100;
         }
         @media  screen and (max-width: 639px){
             #add {
@@ -72,10 +73,11 @@
                         </div>
                         <div class="box-content">
                             <div class="alert alert-info">For help with such table please check <a href="http://datatables.net/" target="_blank">http://datatables.net/</a></div>
-                            <button class="btn btn-primary btn-position-table" id="add" type="button"><i class="glyphicon glyphicon-trash icon-white"></i> 添加</button>
+                            <a class="btn btn-primary btn-position-table" id="add" type="button"><i class="glyphicon glyphicon-trash icon-white"></i> 添加</a>
                             <table id="userInfo" class="table table-striped table-bordered bootstrap-datatable datatable responsive" cellspacing="0" width="100%">
                                 <thead>
                                     <tr>
+                                        <th></th>
                                         <th>用户名</th>
                                         <th>姓名</th>
                                         <th>性别</th>
@@ -88,6 +90,7 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
+                                        <th></th>
                                         <th>用户名</th>
                                         <th>姓名</th>
                                         <th>性别</th>
@@ -193,7 +196,19 @@
             "ajax":"selectUserInfo.do",//ajax请求后台JSON数据
              "sDom": "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
              "sPaginationType": "bootstrap",
+             "columnDefs": [
+                 {
+                     orderable: false,
+                     visible:false,
+                     targets: 0
+                 },
+                 {
+                     orderable: false,
+                     targets: 8
+                 }
+             ],
             "columns": [
+                { "data": "id" },
                 { "data": "userName" },
                 { "data": "name" },
                 { "data": "gender" ,
@@ -205,12 +220,12 @@
                 { "data": "email" },
                 { "data": "type" ,
                     render:function (data, type, row) {
-                        if(data.type){return "一般用户"}else{return "系统用户"}
+                        if(data){return "一般用户"}else{return "系统用户"}
                     }
                 },
                 { "data": "status" ,
                     render:function (data, type, row) {
-                        if(data.status){
+                        if(data){
                             return '<span class="label-default label label-danger">失效</span>';
                         }else{
                             return '<span class="label-success label label-default">有效</span>';
@@ -221,16 +236,16 @@
                     render:function (data, type, row) {
                         return '<a class="btn btn-success" id="select">'+
                         '<i class="glyphicon glyphicon-zoom-in icon-white"></i>'+
-                                '查询'+
-                               ' </a>'+
+                                ' 查询'+
+                                ' </a>'+
                                 '<a class="btn btn-info" id="edit">'+
                                 '<i class="glyphicon glyphicon-edit icon-white"></i>'+
-                                '修改'+
-                               ' </a>'+
-                                '<a class="btn btn-danger" href="#">'+
+                                ' 修改'+
+                                ' </a>'+
+                                '<a class="btn btn-danger" id="del">'+
                                 '<i class="glyphicon glyphicon-trash icon-white"></i>'+
-                               ' 删除'+
-                               ' </a>'
+                                ' 删除'+
+                                ' </a>'
                     }
                 },
             ],
@@ -327,6 +342,10 @@
                 },
             }
         });
+        $('#add').on( 'click', function () {
+            url='insertUser.do';
+            formReading(null,"添加用户");
+        } );
         $('#userInfo tbody').on( 'click', 'a#select', function () {
             var data = $('#userInfo').DataTable().row($(this).parents('tr')).data();
             formReading(data,"查询用户");
@@ -340,31 +359,45 @@
             var data = $('#userInfo').DataTable().row($(this).parents('tr')).data();
             formReading(data,"修改用户");
         } );
+        $('#userInfo tbody').on( 'click', 'a#del', function () {
+            var data = $('#userInfo').DataTable().row($(this).parents('tr')).data();
+            $.post('deleteUser.do', {id:data.id}, function(result) {
+                if(result.state==0){
+                    table.ajax.reload();
+                }
+            }, 'json');
+        });
         $('#save').click(function() {
 //         $('#userForm').bootstrapValidator('validate');
             var bootstrapValidator = $("#userForm").data('bootstrapValidator');
             bootstrapValidator.validate();
             if(!bootstrapValidator.isValid())return ;
             $.post(url, $('#userForm').serialize(), function(result) {
-                alert(result);
+                if(result.state==0){
+                    $('#myModal').modal("hide");
+                    table.ajax.reload();
+                }
             }, 'json');
         });
         function formReading(data,title){
             $('#userForm')[0].reset();//清空表单
             $('#form-title').html(title);//设置标题
-            $('#userName').val(data.userName);
-            $('#name').val(data.name);
-            if(data.gender==0){
-                $('#m-gender').attr("checked",false);
-                $('#w-gender').attr("checked",true);
-            }else{
-                $('#m-gender').attr("checked",true);
-                $('#w-gender').attr("checked",false);
+            if(data){
+                $('#userName').val(data.userName);
+                $('#name').val(data.name);
+                if(data.gender==0){
+                    $('#m-gender').attr("checked",false);
+                    $('#w-gender').attr("checked",true);
+                }else{
+                    $('#m-gender').attr("checked",true);
+                    $('#w-gender').attr("checked",false);
+                }
+
+                $('input[name=gender][value='+data.gender+']').attr("checked",true);
+                $('#qq').val(data.qq);
+                $('#email').val(data.email);
+                $('#type').val(data.type);
             }
-            $('input[name=gender][value='+data.gender+']').attr("checked",true);
-            $('#qq').val(data.qq);
-            $('#email').val(data.email);
-            $('#type').val(data.type);
             $('#myModal').modal("show"); //模态框显示
         }
     });
