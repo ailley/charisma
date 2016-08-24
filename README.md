@@ -12,8 +12,8 @@
 以及一系列的[jquery](https://github.com/jquery/jquery)插件
 
 例如:
-    [DataTables](https://github.com/DataTables/DataTables)
-    
+    Jquery表格插件[DataTables](https://github.com/DataTables/DataTables)
+    BootstrapValidator Bootstrap表单验证插件[DataTables](http://bv.doc.javake.cn/api/)
     
 ##有问题反馈
 
