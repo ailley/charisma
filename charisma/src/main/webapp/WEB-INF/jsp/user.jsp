@@ -78,6 +78,7 @@
                                 <thead>
                                     <tr>
                                         <th></th>
+                                        <th></th>
                                         <th>用户名</th>
                                         <th>姓名</th>
                                         <th>性别</th>
@@ -90,6 +91,7 @@
                                 </thead>
                                 <tfoot>
                                     <tr>
+                                        <th></th>
                                         <th></th>
                                         <th>用户名</th>
                                         <th>姓名</th>
@@ -204,11 +206,17 @@
                  },
                  {
                      orderable: false,
-                     targets: 8
+                     searchable: false,
+                     targets: 1
+                 },
+                 {
+                     orderable: false,
+                     targets: 9
                  }
              ],
             "columns": [
                 { "data": "id" },
+                { "data": null },
                 { "data": "userName" },
                 { "data": "name" },
                 { "data": "gender" ,
@@ -400,6 +408,11 @@
             }
             $('#myModal').modal("show"); //模态框显示
         }
+        table.on( 'order.dt search.dt', function () {
+            table.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                cell.innerHTML = i+1;
+            } );
+        } ).draw();
     });
 //    function dataEdit() {
 //        $(':input','#userForm')
