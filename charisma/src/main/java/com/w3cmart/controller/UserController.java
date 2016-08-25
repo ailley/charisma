@@ -6,8 +6,10 @@ import com.w3cmart.common.util.ViewResult;
 import com.w3cmart.entity.User;
 import com.w3cmart.entity.UserCriteria;
 import com.w3cmart.service.user.UserService;
+import org.omg.CORBA.Object;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -63,5 +65,39 @@ public class UserController {
         user.setStatus(StatusEnum.DISABLE);
         userService.update(user);
         return ViewResult.newInstance().json();
+    }
+    @RequestMapping("existUserName")
+    @ResponseBody
+    public Map checkExistUserName(@RequestParam("userName")String userName){
+        Map map = new HashMap();
+        UserCriteria userCriteria = new UserCriteria();
+        UserCriteria.Criteria criteria = userCriteria.createCriteria();
+        if (userName!=null && userName.length()>0){
+            criteria.andUserNameEqualTo(userName);
+        }
+        List<User> list = userService.selectByExample(userCriteria);
+        if(list != null && list.size()>0){
+            map.put("valid",false);
+        }else{
+            map.put("valid",true);
+        }
+        return map;
+    }
+    @RequestMapping("existEmail")
+    @ResponseBody
+    public Map checkExist(@RequestParam("email")String email){
+        Map map = new HashMap();
+        UserCriteria userCriteria = new UserCriteria();
+        UserCriteria.Criteria criteria = userCriteria.createCriteria();
+        if (email!=null && email.length()>0){
+            criteria.andEmailEqualTo(email);
+        }
+        List<User> list = userService.selectByExample(userCriteria);
+        if(list != null && list.size()>0){
+            map.put("valid",false);
+        }else{
+            map.put("valid",true);
+        }
+        return map;
     }
 }

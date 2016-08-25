@@ -193,7 +193,7 @@
     var table ;
     var url ;
     $(document).ready(function () {
-
+        formValidator();
          table = $('#userInfo').DataTable({
             dom: "Bfrtip",
             "ajax":"selectUserInfo.do",//ajax请求后台JSON数据
@@ -234,7 +234,7 @@
                 },
                 { "data": "status" ,
                     render:function (data, type, row) {
-                        if(data){
+                        if(data=="DISABLE"){
                             return '<span class="label-default label label-danger">失效</span>';
                         }else{
                             return '<span class="label-success label label-default">有效</span>';
@@ -259,6 +259,7 @@
                 },
             ],
             "oLanguage": {  //对表格国际化
+                "sUrl":"language.json",
                 "sLengthMenu": "每页显示 _MENU_条",
                 "sZeroRecords": "没有找到符合条件的数据",
                 //  "sProcessing": "&lt;img src=’./loading.gif’ /&gt;",
@@ -275,94 +276,7 @@
                 }
             },
         });
-        $('#userForm').bootstrapValidator({
-            message: 'This value is not valid',
-            feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
-            fields: {
-                userName: {
-                    threshold :  6 ,
-                    message: '用户名不能为空',
-                    validators: {
-                        notEmpty: {
-                            message: '用户名不能为空'
-                        },
-                        stringLength: {
-                            min: 3,
-                            max: 30,
-                            message: '长度为3-30位'
-                        },
-                        regexp: {
-                            regexp: /^[a-zA-Z0-9_]+$/,
-                            message: '必须是字母数字下划线'
-                        },
-                        remote: {//ajax验证。server result:{"valid",true or false} 向服务发送当前input name值，获得一个json数据。例表示正确：{"valid",true}
-                                url: 'exist.do',//验证地址
-                                message: '用户已存在',//提示消息
-                                delay :  2000,//每输入一个字符，就发ajax请求，服务器压力还是太大，设置2秒发送一次ajax（默认输入一个字符，提交一次，服务器压力太大）
-                                type: 'POST',//请求方式
-                                /* data: function(validator) {//自定义提交数据，默认值提交当前input value
-                                   return {
-                                       id: $('#id').val(),
-                                   };
-                                }*/
-                        },
-                    }
-                },
-                name: {
-                    validators: {
-                        notEmpty: {
-                            message: '姓名不能为空'
-                        }
-                    }
-                },
-                gender: {
-                    validators: {
-                        notEmpty: {
-                            message: '请选择性别'
-                        }
-                    }
-                },
-                qq: {
-                    message: 'QQ不能为空',
-                    validators: {
-                        notEmpty: {
-                            message: 'QQ不能为空'
-                        },
-                        stringLength: {
-                            min: 4,
-                            max: 12,
-                            message: '长度为4-12位'
-                        },
-                        regexp: {
-                            regexp: /^[0-9]+$/,
-                            message: '必须是数字'
-                        }
-                    }
-                },
-                email: {
-                    message: 'Email不能为空',
-                    validators: {
-                        notEmpty: {
-                            message: 'Email不能为空'
-                        },
-                        emailAddress: {
-                            message: '必须是Email'
-                        }
-                    }
-                },
-                type: {
-                    validators: {
-                        notEmpty: {
-                            message: '请用户类别'
-                        }
-                    }
-                },
-            }
-        });
+
         $('#add').on( 'click', function () {
             url='insertUser.do';
             $("form  :input").attr("disabled",false);
@@ -376,7 +290,7 @@
             $('#save').attr("disabled",true);
         });
         $('#userInfo tbody').on( 'click', 'a#edit', function () {
-            $("form  :input").not('#userName').attr("disabled",false);
+            !$("form  :input").not('#userName').not("#email").attr("disabled",false);
             $('#save').attr("disabled",false);
             url='updatetUser.do';
             var data = $('#userInfo').DataTable().row($(this).parents('tr')).data();
@@ -424,11 +338,118 @@
             }
             $('#myModal').modal("show"); //模态框显示
         }
+        $('#myModal').on('hidden.bs.modal', function() {
+            $("#userForm").data('bootstrapValidator').resetForm();
+            formValidator();
+        });
         table.on( 'order.dt search.dt', function () {
             table.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
                 cell.innerHTML = i+1;
             } );
         } ).draw();
+        function  formValidator() {
+            $('#userForm').bootstrapValidator({
+                message: 'This value is not valid',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    userName: {
+                        threshold :  6 ,
+                        message: '用户名不能为空',
+                        validators: {
+                            notEmpty: {
+                                message: '用户名不能为空'
+                            },
+                            stringLength: {
+                                min: 6,
+                                max: 30,
+                                message: '长度为6-30位'
+                            },
+                            regexp: {
+                                regexp: /^[a-zA-Z0-9_]+$/,
+                                message: '必须是字母数字下划线'
+                            },
+                            remote: {//ajax验证。server result:{"valid",true or false} 向服务发送当前input name值，获得一个json数据。例表示正确：{"valid",true}
+                                url: 'existUserName.do',//验证地址
+                                message: '用户已存在',//提示消息
+                                delay :  2000,//每输入一个字符，就发ajax请求，服务器压力还是太大，设置2秒发送一次ajax（默认输入一个字符，提交一次，服务器压力太大）
+                                type: 'POST',//请求方式
+                                /* data: function(validator) {//自定义提交数据，默认值提交当前input value
+                                 return {
+                                 id: $('#id').val(),
+                                 };
+                                 }*/
+                            },
+                        }
+                    },
+                    name: {
+                        validators: {
+                            notEmpty: {
+                                message: '姓名不能为空'
+                            }
+                        }
+                    },
+                    gender: {
+                        validators: {
+                            notEmpty: {
+                                message: '请选择性别'
+                            }
+                        }
+                    },
+                    qq: {
+                        message: 'QQ不能为空',
+                        validators: {
+                            notEmpty: {
+                                message: 'QQ不能为空'
+                            },
+                            stringLength: {
+                                min: 4,
+                                max: 12,
+                                message: '长度为4-12位'
+                            },
+                            regexp: {
+                                regexp: /^[0-9]+$/,
+                                message: '必须是数字'
+                            }
+                        }
+                    },
+                    email: {
+                        threshold :  9 ,
+                        message: 'Email不能为空',
+                        validators: {
+                            notEmpty: {
+                                message: 'Email不能为空'
+                            },
+                            remote: {//ajax验证。server result:{"valid",true or false} 向服务发送当前input name值，获得一个json数据。例表示正确：{"valid",true}
+                                url: 'existEmail.do',//验证地址
+                                message: '邮箱已存在',//提示消息
+                                delay :  2000,//每输入一个字符，就发ajax请求，服务器压力还是太大，设置2秒发送一次ajax（默认输入一个字符，提交一次，服务器压力太大）
+                                type: 'POST',//请求方式
+                                /* data: function(validator) {//自定义提交数据，默认值提交当前input value
+                                 return {
+                                 id: $('#id').val(),
+                                 };
+                                 }*/
+                            },
+                            emailAddress: {
+                                message: '必须是Email'
+                            }
+                        },
+
+                    },
+                    type: {
+                        validators: {
+                            notEmpty: {
+                                message: '请用户类别'
+                            }
+                        }
+                    },
+                }
+            });
+        }
     });
 //    function dataEdit() {
 //        $(':input','#userForm')
