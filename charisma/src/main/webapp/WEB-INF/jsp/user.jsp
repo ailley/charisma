@@ -128,10 +128,11 @@
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" id="userForm">
+                        <input type="hidden" id="id" name="id">
                         <div class="form-group">
                             <label for="userName" class="col-sm-2 control-label">用户名</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="userName" id="userName" placeholder="用户名">
+                                <input type="text" class="form-control" name="userName" id="userName" placeholder="用户名" disabled>
                             </div>
                         </div>
                         <div class="form-group">
@@ -283,6 +284,7 @@
             },
             fields: {
                 userName: {
+                    threshold :  6 ,
                     message: '用户名不能为空',
                     validators: {
                         notEmpty: {
@@ -296,7 +298,18 @@
                         regexp: {
                             regexp: /^[a-zA-Z0-9_]+$/,
                             message: '必须是字母数字下划线'
-                        }
+                        },
+                        remote: {//ajax验证。server result:{"valid",true or false} 向服务发送当前input name值，获得一个json数据。例表示正确：{"valid",true}
+                                url: 'exist.do',//验证地址
+                                message: '用户已存在',//提示消息
+                                delay :  2000,//每输入一个字符，就发ajax请求，服务器压力还是太大，设置2秒发送一次ajax（默认输入一个字符，提交一次，服务器压力太大）
+                                type: 'POST',//请求方式
+                                /* data: function(validator) {//自定义提交数据，默认值提交当前input value
+                                   return {
+                                       id: $('#id').val(),
+                                   };
+                                }*/
+                        },
                     }
                 },
                 name: {
@@ -352,6 +365,8 @@
         });
         $('#add').on( 'click', function () {
             url='insertUser.do';
+            $("form  :input").attr("disabled",false);
+            $('#id').val('');
             formReading(null,"添加用户");
         } );
         $('#userInfo tbody').on( 'click', 'a#select', function () {
@@ -361,7 +376,7 @@
             $('#save').attr("disabled",true);
         });
         $('#userInfo tbody').on( 'click', 'a#edit', function () {
-            $("form  :input").attr("disabled",false);
+            $("form  :input").not('#userName').attr("disabled",false);
             $('#save').attr("disabled",false);
             url='updatetUser.do';
             var data = $('#userInfo').DataTable().row($(this).parents('tr')).data();
@@ -391,6 +406,7 @@
             $('#userForm')[0].reset();//清空表单
             $('#form-title').html(title);//设置标题
             if(data){
+                $('#id').val(data.id);
                 $('#userName').val(data.userName);
                 $('#name').val(data.name);
                 if(data.gender==0){
