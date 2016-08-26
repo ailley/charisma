@@ -193,6 +193,7 @@
     var table ;
     var url ;
     $(document).ready(function () {
+
         formValidator();
          table = $('#userInfo').DataTable({
             dom: "Bfrtip",
@@ -258,22 +259,23 @@
                     }
                 },
             ],
-            "oLanguage": {  //对表格国际化
-                "sUrl":"language.json",
-                "sLengthMenu": "每页显示 _MENU_条",
-                "sZeroRecords": "没有找到符合条件的数据",
-                //  "sProcessing": "&lt;img src=’./loading.gif’ /&gt;",
-                "sInfo": "当前第 _START_ - _END_ 条　共计 _TOTAL_ 条",
-                "sInfoEmpty": "木有记录",
-                "sInfoFiltered": "(从 _MAX_ 条记录中过滤)",
-                "sSearch": "搜索：",
-                "oPaginate": {
-                    "sFirst": "首页",
-                    "sPrevious": "前一页",
-                    "sNext": "后一页",
-                    "sLast": "尾页"
-
-                }
+            oLanguage: {  //对表格国际化
+                sUrl:"language.json",
+                decimal: ",",
+//                "sLengthMenu": "每页显示 _MENU_条",
+//                "sZeroRecords": "没有找到符合条件的数据",
+//                //  "sProcessing": "&lt;img src=’./loading.gif’ /&gt;",
+//                "sInfo": "当前第 _START_ - _END_ 条　共计 _TOTAL_ 条",
+//                "sInfoEmpty": "木有记录",
+//                "sInfoFiltered": "(从 _MAX_ 条记录中过滤)",
+//                "sSearch": "搜索：",
+//                "oPaginate": {
+//                    "sFirst": "首页",
+//                    "sPrevious": "前一页",
+//                    "sNext": "后一页",
+//                    "sLast": "尾页"
+//
+//                }
             },
         });
 
@@ -298,11 +300,15 @@
         } );
         $('#userInfo tbody').on( 'click', 'a#del', function () {
             var data = $('#userInfo').DataTable().row($(this).parents('tr')).data();
-            $.post('deleteUser.do', {id:data.id}, function(result) {
-                if(result.state==0){
-                    table.ajax.reload();
-                }
-            }, 'json');
+            Ewin.confirm({ message: "确认要删除选择的数据吗？" }).on(function (e) {
+                if (!e) return;
+                $.post('deleteUser.do', {id:data.id}, function(result) {
+                    if(result.state==0){
+                        table.ajax.reload();
+                    }
+                }, 'json');
+            });
+
         });
         $('#save').click(function() {
 //         $('#userForm').bootstrapValidator('validate');
