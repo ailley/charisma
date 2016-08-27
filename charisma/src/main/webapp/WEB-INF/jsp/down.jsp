@@ -47,4 +47,6 @@
 <script src="<%=basePath%>static/js/bootstrapValidator.min.js"></script>
 <!-- Bootstrap-Prompt-->
 <script src="<%=basePath%>static/js/bootstrap-prompt.js"></script>
+<!-- bootstrap-treeview -->
+<script src="<%=basePath%>static/bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
 

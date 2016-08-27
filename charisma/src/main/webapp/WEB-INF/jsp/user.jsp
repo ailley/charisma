@@ -193,7 +193,6 @@
     var table ;
     var url ;
     $(document).ready(function () {
-
         formValidator();
          table = $('#userInfo').DataTable({
             dom: "Bfrtip",
@@ -262,20 +261,6 @@
             oLanguage: {  //对表格国际化
                 sUrl:"language.json",
                 decimal: ",",
-//                "sLengthMenu": "每页显示 _MENU_条",
-//                "sZeroRecords": "没有找到符合条件的数据",
-//                //  "sProcessing": "&lt;img src=’./loading.gif’ /&gt;",
-//                "sInfo": "当前第 _START_ - _END_ 条　共计 _TOTAL_ 条",
-//                "sInfoEmpty": "木有记录",
-//                "sInfoFiltered": "(从 _MAX_ 条记录中过滤)",
-//                "sSearch": "搜索：",
-//                "oPaginate": {
-//                    "sFirst": "首页",
-//                    "sPrevious": "前一页",
-//                    "sNext": "后一页",
-//                    "sLast": "尾页"
-//
-//                }
             },
         });
 
@@ -304,7 +289,14 @@
                 if (!e) return;
                 $.post('deleteUser.do', {id:data.id}, function(result) {
                     if(result.state==0){
+                        noty({
+                            text: '提示 - 删除成功!',
+                        });
                         table.ajax.reload();
+                    }else {
+                        noty({
+                            text: '提示 - 删除失败!',
+                        });
                     }
                 }, 'json');
             });
@@ -319,6 +311,9 @@
                 if(result.state==0){
                     $('#myModal').modal("hide");
                     table.ajax.reload();
+                    noty({
+                        text: '提示 - 操作成功!',
+                    });
                 }
             }, 'json');
         });
@@ -457,35 +452,6 @@
             });
         }
     });
-//    function dataEdit() {
-//        $(':input','#userForm')
-//                .not(':button, :submit, :reset, :hidden')
-//                .val('')
-//                .removeAttr('checked')
-//                .removeAttr('selected');
-
-//        $("#userInfo tbody tr").click(function(e){
-//            var index = $(this).context._DT_RowIndex; //行号
-//            var row = table.row( index );
-//            console.log(row.data());
-//        });
-        //表单赋值
-//        $('#userInfo tbody').on('click', 'tr', function () {
-////            console.log(this);
-//            var row = table.row( this ).data();
-//            $('#userName').val(row.userName);
-//            $('#name').val(row.name);
-//            $('input[name="gender"][value='+row.gender+']').attr("checked",true);
-//            $('#qq').val(row.qq);
-//            $('#email').val(row.email);
-//            $('#type').val(row.type);
-//        } );
-//        $('#myModal').on('hidden.bs.modal', function (e) {
-//            num=0;
-//        })
-
-
-//    }
 
 </script>
 </body>

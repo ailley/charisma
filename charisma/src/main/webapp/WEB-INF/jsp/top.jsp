@@ -23,6 +23,7 @@
 <link href='<%=basePath%>static/bower_components/colorbox/example3/colorbox.css' rel='stylesheet'>
 <link href='<%=basePath%>static/bower_components/responsive-tables/responsive-tables.css' rel='stylesheet'>
 <link href='<%=basePath%>static/bower_components/bootstrap-tour/build/css/bootstrap-tour.min.css' rel='stylesheet'>
+<link href='<%=basePath%>static/css/animate.min.css' rel='stylesheet'>
 <link href='<%=basePath%>static/css/jquery.noty.css' rel='stylesheet'>
 <link href='<%=basePath%>static/css/noty_theme_default.css' rel='stylesheet'>
 <link href='<%=basePath%>static/css/elfinder.min.css' rel='stylesheet'>
@@ -31,7 +32,6 @@
 <link href='<%=basePath%>static/css/uploadify.css' rel='stylesheet'>
 <link href='<%=basePath%>static/css/jquery.dataTables.min.css' rel='stylesheet'>
 <link href='<%=basePath%>static/css/responsive.dataTables.min.css' rel='stylesheet'>
-<link href='<%=basePath%>static/css/animate.min.css' rel='stylesheet'>
 <link href='<%=basePath%>static/css/bootstrapValidator.min.css' rel='stylesheet'>
 
 
