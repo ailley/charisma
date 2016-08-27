@@ -31,7 +31,7 @@
 
 4.配置好IDEA相关的tomcat以及jdk 相关配置在网上有 可以自行查找资料
 
-5.如果你想在此项目上二次开发,可以Fork[MybatisGenerator](https://github.com/ailley/MybatisGenerator)自动生成Mapper Model
+5.如果你想在此项目上二次开发,可以Fork [MybatisGenerator](https://github.com/ailley/MybatisGenerator) 自动生成Mapper Model
 
 ##有问题反馈
 
