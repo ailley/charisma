@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!-- left menu starts -->
-<div class="col-sm-2 col-lg-2">
+<div class="col-sm-2 col-lg-2" id="menuList">
     <div class="sidebar-nav">
         <div class="nav-canvas">
             <div class="nav-sm nav nav-stacked">
