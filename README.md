@@ -16,6 +16,8 @@
 [DataTables](https://github.com/DataTables/DataTables)
     
 [BootstrapValidator](http://bv.doc.javake.cn/api/)
+
+[noty](https://github.com/needim/noty/)
     
 ##运行方式
 
