@@ -19,6 +19,8 @@
     
 ##运行方式
 
+    $ bower install ailley/charisma
+
 1.将项目克隆下载下来,打开IDEA 将其IDEA
 
 或者点击Fork一下采用IDEA 自带的git克隆到IDEA
