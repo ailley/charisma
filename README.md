@@ -17,9 +17,17 @@
     
 [BootstrapValidator](http://bv.doc.javake.cn/api/)
     
+##运行方式
+
+1.将项目克隆下载下来,打开IDEA 将其IDEA
+
+或者点击Fork一下采用IDEA 自带的git克隆到IDEA
+
+2.导入项目后,查看webapp下一个sql文件夹,将charisma.sql在你的mysql工具中刷一下
+
 ##有问题反馈
 
-如果有什么问题,可以随时联系我
+如果有什么问题,可以随时@我
 
 * 邮件(137080253@qq.com)
 * QQ: 137080253
