@@ -2,15 +2,16 @@ package com.w3cmart.mapper;
 
 import com.h.common.admin.superpage.MapperSuper;
 import com.w3cmart.entity.Menu;
-import com.w3cmart.entity.MenuExample;
+import com.w3cmart.entity.MenuCriteria;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository("menuMapper")
 public interface MenuMapper extends MapperSuper {
-    int countByExample(MenuExample example);
+    int countByExample(MenuCriteria example);
 
-    int deleteByExample(MenuExample example);
+    int deleteByExample(MenuCriteria example);
 
     int deleteByPrimaryKey(Long id);
 
@@ -18,13 +19,13 @@ public interface MenuMapper extends MapperSuper {
 
     int insertSelective(Menu record);
 
-    List<Menu> selectByExample(MenuExample example);
+    List<Menu> selectByExample(MenuCriteria example);
 
     Menu selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") Menu record, @Param("example") MenuExample example);
+    int updateByExampleSelective(@Param("record") Menu record, @Param("example") MenuCriteria example);
 
-    int updateByExample(@Param("record") Menu record, @Param("example") MenuExample example);
+    int updateByExample(@Param("record") Menu record, @Param("example") MenuCriteria example);
 
     int updateByPrimaryKeySelective(Menu record);
 

@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.w3cmart.common.base.exception.BusinessException;
 import com.w3cmart.common.enums.ShowAble;
-import javafx.scene.control.Pagination;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
@@ -19,7 +18,7 @@ public class ViewResult {
     String message;
     int state;
     Object data;
-    Pagination page;
+//    Pagination page;
     Collection<? extends Object> rows = new ArrayList();
 
     private static GsonBuilder GSON_BUILDER = new GsonBuilder().setDateFormat("yyyyMMdd'T'HHmmssZ")

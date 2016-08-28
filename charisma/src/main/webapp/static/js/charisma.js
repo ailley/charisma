@@ -126,33 +126,33 @@ $(document).ready(function () {
         //other things to do on document ready, separated for ajax calls
         docReady();
 
-        $('#visit').on('click',function () {
-            if ($('#menuList').is(':hidden')){
-                $('#menuList').show(800);
-                $('#content').removeClass("col-lg-12 col-sm-12");
-                $('#content').addClass("col-lg-10 col-sm-10");
-            }else{
-                setTimeout(function () {
-                    $('#content').removeClass("col-lg-10 col-sm-10");
-                    $('#content').addClass("col-lg-12 col-sm-12");
-                },800);
-
-                $('#menuList').hide(800);
-            }
-
-        });
-    $(window).resize(function() {
-        var width = $(this).width();
-
-        if(width<768 && $('#menuList').is(':hidden')){
-            $('#menuList').show();
-        }
-        if(width>768 && $('#menuList').is(':visible')){
-            $('#content').removeClass("col-lg-12 col-sm-12");
-            $('#content').addClass("col-lg-10 col-sm-10");
-        }
-
-    });
+    //     $('#visit').on('click',function () {
+    //         if ($('#menuList').is(':hidden')){
+    //             $('#menuList').show(800);
+    //             $('#content').removeClass("col-lg-12 col-sm-12");
+    //             $('#content').addClass("col-lg-10 col-sm-10");
+    //         }else{
+    //             setTimeout(function () {
+    //                 $('#content').removeClass("col-lg-10 col-sm-10");
+    //                 $('#content').addClass("col-lg-12 col-sm-12");
+    //             },800);
+    //
+    //             $('#menuList').hide(800);
+    //         }
+    //
+    //     });
+    // $(window).resize(function() {
+    //     var width = $(this).width();
+    //
+    //     if(width<768 && $('#menuList').is(':hidden')){
+    //         $('#menuList').show();
+    //     }
+    //     if(width>768 && $('#menuList').is(':visible')){
+    //         $('#content').removeClass("col-lg-12 col-sm-12");
+    //         $('#content').addClass("col-lg-10 col-sm-10");
+    //     }
+    //
+    // });
     }
 );
 
@@ -318,10 +318,10 @@ function docReady() {
         else                       $('i', $(this)).removeClass('glyphicon-chevron-down').addClass('glyphicon-chevron-up');
         $target.slideToggle();
     });
-    $('.btn-setting').click(function (e) {
-        e.preventDefault();
-        $('#myModal').modal('show');
-    });
+    // $('.btn-setting').click(function (e) {
+    //     e.preventDefault();
+    //     $('#myModal').modal('show');
+    // });
 
 
     $('#calendar').fullCalendar({

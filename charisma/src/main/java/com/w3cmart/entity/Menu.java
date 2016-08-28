@@ -3,19 +3,25 @@ package com.w3cmart.entity;
 import com.h.common.admin.superpage.BeanSuper;
 import com.w3cmart.common.enums.StatusEnum;
 
+import java.util.List;
+
 @SuppressWarnings("serial")
 public class Menu implements BeanSuper {
     private Long id;
 
-    private String name;
+    private String text;
 
     private Long parentId;
 
-    private String url;
+    private String href;
+
+    private String icon;
 
     private Long sort;
 
     private StatusEnum status;
+
+    private List<Menu> nodes;
 
     public Long getId() {
         return id;
@@ -25,12 +31,12 @@ public class Menu implements BeanSuper {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getText() {
+        return text;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setText(String text) {
+        this.text = text == null ? null : text.trim();
     }
 
     public Long getParentId() {
@@ -41,12 +47,20 @@ public class Menu implements BeanSuper {
         this.parentId = parentId;
     }
 
-    public String getUrl() {
-        return url;
+    public String getHref() {
+        return href;
     }
 
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
+    public void setHref(String href) {
+        this.href = href == null ? null : href.trim();
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon == null ? null : icon.trim();
     }
 
     public Long getSort() {
@@ -65,18 +79,28 @@ public class Menu implements BeanSuper {
         this.status = status;
     }
 
-    /** 
+    public List<Menu> getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(List<Menu> nodes) {
+        this.nodes = nodes;
+    }
+
+    /**
      * 拷贝，将对象中的字段全部拷贝到子对象中
      * @param bean 接收对象的子类
      * @return 拷贝完成后的子类
      */ 
     public  <T extends Menu> T copy(T bean) {
         bean.setId(getId());
-        bean.setName(getName());
+        bean.setText(getText());
         bean.setParentId(getParentId());
-        bean.setUrl(getUrl());
+        bean.setHref(getHref());
+        bean.setIcon(getIcon());
         bean.setSort(getSort());
         bean.setStatus(getStatus());
+        bean.setNodes(getNodes());
         return bean;
     }
 
@@ -87,11 +111,13 @@ public class Menu implements BeanSuper {
     public String toString() {
         return "{" + 
         	", id:" + getId() + 
-        	", name:" + getName() + 
+        	", text:" + getText() + 
         	", parentId:" + getParentId() + 
-        	", url:" + getUrl() + 
-        	", sort:" + getSort() + 
-        	", status:" + getStatus() + 
+        	", href:" + getHref() + 
+        	", icon:" + getIcon() + 
+        	", sort:" + getSort() +
+             ",nodes" + getNodes() +
+        	", status:" + getStatus() +
         "}";
     }
 }
