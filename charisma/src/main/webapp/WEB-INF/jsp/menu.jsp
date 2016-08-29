@@ -666,7 +666,11 @@
                 }
             });
         }
-
+        /*菜单关闭时重置验证*/
+        $('#memuModal').on('hidden.bs.modal', function() {
+            $("#menuForm").data('bootstrapValidator').resetForm();
+            formValidator();
+        });
     });
     
 </script>
