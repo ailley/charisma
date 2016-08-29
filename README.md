@@ -18,6 +18,8 @@
 [BootstrapValidator](http://bv.doc.javake.cn/api/)
 
 [noty](https://github.com/needim/noty/)
+
+[bootstrap-treeview](https://www.npmjs.com/package/bootstrap-treeview)
     
 ##运行方式
 
