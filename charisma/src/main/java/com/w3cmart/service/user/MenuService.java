@@ -12,6 +12,10 @@ public interface MenuService {
 
     int addRootMenu(Menu menu);
 
+    int updateMenu(Menu menu);
+
+    int deleteMenu(Long id);
+
     List<Menu> selectByExample(MenuCriteria menuCriteria);
 
 }

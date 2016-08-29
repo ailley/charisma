@@ -4,7 +4,6 @@ import com.w3cmart.common.enums.StatusEnum;
 import com.w3cmart.common.util.ViewResult;
 import com.w3cmart.entity.Menu;
 import com.w3cmart.entity.MenuCriteria;
-import com.w3cmart.entity.UserCriteria;
 import com.w3cmart.service.user.MenuService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,6 +72,31 @@ public class MenuController {
     public String addMenu(Menu menu){
         menu.setStatus(StatusEnum.ENABLE);
         menuService.addRootMenu(menu);
+        return ViewResult.newInstance().json();
+    }
+    @RequestMapping("updateMenu")
+    @ResponseBody
+    public String updateMenu(Menu menu){
+        menuService.updateMenu(menu);
+        return ViewResult.newInstance().json();
+    }
+    @RequestMapping("deleteMenu")
+    @ResponseBody
+    public String deleteMenu(Long id){
+        menuService.deleteMenu(id);
+        return ViewResult.newInstance().json();
+    }
+    @RequestMapping("removeRoot")
+    @ResponseBody
+    public String removeRoot(Long rootId){
+        MenuCriteria menuCriteria = new MenuCriteria();
+        MenuCriteria.Criteria criteria = menuCriteria.createCriteria();
+        criteria.andParentIdEqualTo(rootId);
+        List<Menu> menuList = menuService.selectByExample(menuCriteria);
+        for (Menu menu : menuList) {
+            menuService.deleteMenu(menu.getId());
+        }
+        menuService.deleteMenu(rootId);
         return ViewResult.newInstance().json();
     }
 }

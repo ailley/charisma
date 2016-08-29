@@ -246,11 +246,11 @@
                         return '<a class="btn btn-success" id="select">'+
                         '<i class="glyphicon glyphicon-zoom-in icon-white"></i>'+
                                 ' 查询'+
-                                ' </a>'+
+                                ' </a>&nbsp;'+
                                 '<a class="btn btn-info" id="edit">'+
                                 '<i class="glyphicon glyphicon-edit icon-white"></i>'+
                                 ' 修改'+
-                                ' </a>'+
+                                ' </a>&nbsp;'+
                                 '<a class="btn btn-danger" id="del">'+
                                 '<i class="glyphicon glyphicon-trash icon-white"></i>'+
                                 ' 删除'+

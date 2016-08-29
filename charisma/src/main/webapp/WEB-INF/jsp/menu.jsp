@@ -11,7 +11,7 @@
     <title>菜单</title>
     <jsp:include page="top.jsp"/>
     <style>
-        #addMenu{
+        #addMenu,#addPermission{
             position: absolute;
             left: 168px;
             top: 40px;
@@ -24,7 +24,7 @@
             z-index: 100;
         }
         @media  screen and (max-width: 639px){
-            #addMenu ,#removeRoot{
+            #addMenu ,#removeRoot,#addPermission,#addRoot{
                 position: static;
                 display: block;
                 margin: 5px auto;
@@ -80,15 +80,15 @@
                         <div class="box-content">
                             <p>
                                 <a  class="btn btn-info" id="addRoot">添加根目录</a>
-                                <a  class="btn btn-primary" id="expandAll">展开全部</a>
-                                <a  class="btn btn-danger" id="collapseAll">关闭全部</a>
+                              <%--  <a  class="btn btn-primary" id="expandAll">展开全部</a>
+                                <a  class="btn btn-danger" id="collapseAll">关闭全部</a>--%>
                             </p>
                             <div id="tree"></div>
                         </div>
                     </div>
                 </div>
                 <div class="box col-md-9">
-                    <div class="box-inner">
+                    <div class="box-inner"  id="menuListInfo">
                         <div class="box-header well" data-original-title="">
                             <h2><i class="glyphicon glyphicon-user"></i> 菜单管理</h2>
 
@@ -128,6 +128,45 @@
                             </table>
                         </div>
                     </div>
+                    <div class="box-inner" id="permissionListInfo" style="display: none">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-user"></i> 权限管理</h2>
+
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog"></i></a>
+                                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                                <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <a id="addPermission" class="btn btn-primary" disabled="disabled">添加权限</a>
+                            <table class="table table-striped table-bordered bootstrap-datatable datatable nowrap" cellspacing="0" width="100%" id="permissionInfo" >
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>权限名</th>
+                                    <th>权限标识</th>
+                                    <th>权限说明</th>
+                                    <th>权限类别</th>
+                                    <th>操作</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>权限名</th>
+                                    <th>权限标识</th>
+                                    <th>权限说明</th>
+                                    <th>权限类别</th>
+                                    <th>操作</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
                 </div>
                 <!--/span-->
 
@@ -146,7 +185,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">×</button>
-                    <h3>添加根节点</h3>
+                    <h3 >添加根节点</h3>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal" id="rootMenuForm">
@@ -196,6 +235,7 @@
                 <div class="modal-body">
                     <form class="form-horizontal" id="menuForm">
                         <input type="hidden" id="parentId" name="parentId">
+                        <input type="hidden" id="menuId" name="id">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">根目录</label>
                             <div class="col-sm-10">
@@ -288,37 +328,15 @@
             text: "Parent 5"
         }
     ];
-    var table;
+    var menuTable;
+    var permissionTable;
+    var menuUrl;
     $(function () {
-        $.post('selelctMenu.do',{},function (result) {
+        reloadMenu();
 
-            var $tree = $('#tree').treeview({
-                data: result.content.rows,
-                onNodeSelected: function(event, node) {
-                    table.ajax.url( 'selectSubMenu.do?parentId='+node.id ).load();
-                    $('#addMenu').removeAttr('disabled');
-                    $('#rootMenuText').html(node.text);
-                    $('#parentId').val(node.id);
-                },
-            });
-        },'JSON');
-
-        $('#saveMenu').click(function () {
-            var bootstrapValidator = $("#menuForm").data('bootstrapValidator');
-            bootstrapValidator.validate();
-            if(!bootstrapValidator.isValid())return ;
-            $.post('addMenu.do', $('#menuForm').serialize(), function(result) {
-                if(result.state==0){
-                    $('#memuModal').modal("hide");
-                    noty({
-                        text: '提示 - 操作成功!',
-                    });
-                }
-            }, 'json');
-        });
-        
-        table = $('#menuInfo').DataTable({
-            dom: "Bfrtip",
+        /*menuTable初始化*/
+        menuTable = $('#menuInfo').DataTable({
+//            dom: "Bfrtip",
 //            "ajax":"selelctMenu.do",//ajax请求后台JSON数据
             "sDom": "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
             "sPaginationType": "bootstrap",
@@ -351,11 +369,11 @@
                         return '<a class="btn btn-success" id="select">'+
                                 '<i class="glyphicon glyphicon-zoom-in icon-white"></i>'+
                                 ' 查询'+
-                                ' </a>'+
+                                ' </a>&nbsp;'+
                                 '<a class="btn btn-info" id="edit">'+
                                 '<i class="glyphicon glyphicon-edit icon-white"></i>'+
                                 ' 修改'+
-                                ' </a>'+
+                                ' </a>&nbsp;'+
                                 '<a class="btn btn-danger" id="del">'+
                                 '<i class="glyphicon glyphicon-trash icon-white"></i>'+
                                 ' 删除'+
@@ -368,27 +386,94 @@
                 decimal: ",",
             },
         });
-
-        $('#addMenu').click(function () {
-            $('#memuModal').modal('show');
+        /*permissionTable初始化*/
+        permissionTable =$('#permissionInfo').DataTable({
+            dom: "Bfrtip",
+//            "ajax":"selelctMenu.do",//ajax请求后台JSON数据
+            "sDom": "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
+            "sPaginationType": "bootstrap",
+            "scrollX": true,//水平滚动
+            "columnDefs": [
+                {
+                    orderable: false,
+                    visible:false,
+                    targets: 0
+                },
+                {
+                    orderable: false,
+                    searchable: false,
+                    targets: 1
+                },
+                {
+                    orderable: false,
+                    targets: 6
+                }
+            ],
+            "columns": [
+                { "data": "id" },
+                { "data": null },
+                { "data": "text" },
+                { "data": "href" },
+                { "data": "icon" },
+                { "data": "sort" },
+                {   "data":"",
+                    render:function (data, type, row) {
+                        return '<a class="btn btn-success" id="selectPermission">'+
+                                '<i class="glyphicon glyphicon-zoom-in icon-white"></i>'+
+                                ' 查询'+
+                                ' </a>'+
+                                '<a class="btn btn-info" id="editPermission">'+
+                                '<i class="glyphicon glyphicon-edit icon-white"></i>'+
+                                ' 修改'+
+                                ' </a>'+
+                                '<a class="btn btn-danger" id="delPermission">'+
+                                '<i class="glyphicon glyphicon-trash icon-white"></i>'+
+                                ' 删除'+
+                                ' </a>'
+                    }
+                },
+            ],
+            oLanguage: {  //对表格国际化
+                sUrl:"language.json",
+                decimal: ",",
+            },
         });
 
         rootFormValidator();
         formValidator();
-        $('#expandAll').click(function () {
-            $('#tree').treeview('expandAll', { levels: 2, silent: true });
-        });
-        $('#collapseAll').click(function () {
-            $('#tree').treeview('collapseAll', { silent: true });
-        });
+//        $('#expandAll').click(function () {
+//            $('#tree').treeview('expandAll', { levels: 2, silent: true });
+//        });
+//        $('#collapseAll').click(function () {
+//            $('#tree').treeview('collapseAll', { silent: true });
+//        });
+        /*添加根目录*/
         $('#addRoot').click(function () {
             $('#rootMenuForm')[0].reset();//清空表单
             $('#myModal').modal('show');
         });
+
+        $('#myModal').on('hidden.bs.modal', function() {
+            $("#rootMenuForm").data('bootstrapValidator').resetForm();
+            rootFormValidator();
+        });
+       /*menuTable添加序号*/
+        menuTable.on( 'order.dt search.dt', function () {
+            menuTable.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                cell.innerHTML = i+1;
+            } );
+        } ).draw();
+       /*permissionTable添加序号*/
+        permissionTable.on( 'order.dt search.dt', function () {
+            permissionTable.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                cell.innerHTML = i+1;
+            } );
+        } ).draw()
+        /*添加根目录*/
         $('#save').click(function () {
-            var bootstrapValidator = $("#rootMenuForm").data('bootstrapValidator');
-            bootstrapValidator.validate();
-            if(!bootstrapValidator.isValid())return ;
+            var rootMenuValidator = $("#rootMenuForm").data('bootstrapValidator');
+            rootMenuValidator.validate();
+            if(!rootMenuValidator.isValid())return ;
             $.post('addRootMenu.do', $('#rootMenuForm').serialize(), function(result) {
                 if(result.state==0){
                     $('#myModal').modal("hide");
@@ -396,18 +481,118 @@
                         text: '提示 - 操作成功!',
                     });
                 }
+                reloadMenu();
             }, 'json');
         });
-        $('#myModal').on('hidden.bs.modal', function() {
-            $("#rootMenuForm").data('bootstrapValidator').resetForm();
-            rootFormValidator();
+        /*添加菜单*/
+        $('#addMenu').click(function () {
+            menuUrl = 'addMenu.do';
+            $("#menuForm  :input").attr("disabled",false);
+            $('#menuId').val('');
+            menuFormReading(null,"添加用户");
+            $('#memuModal').modal('show');
         });
-        table.on( 'order.dt search.dt', function () {
-            table.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                cell.innerHTML = i+1;
-            } );
-        } ).draw()
+        /*修改菜单*/
+        $('#menuInfo tbody').on( 'click', 'a#edit', function () {
+            !$("#menuForm  :input").attr("disabled",false);
+            $('#saveMenu').attr("disabled",false);
+            menuUrl='updateMenu.do';
+            var data = $('#menuInfo').DataTable().row($(this).parents('tr')).data();
+            menuFormReading(data,"修改用户");
+        } );
+        /* 查看菜单*/
+        $('#menuInfo tbody').on( 'click', 'a#select', function () {
+            var data = $('#menuInfo').DataTable().row($(this).parents('tr')).data();
+            menuFormReading(data,"查询用户");
+            $("#menuForm  :input").attr("disabled",true);
+            $('#saveMenu').attr("disabled",true);
+        });
+        /*保存菜单*/
+        $('#saveMenu').click(function () {
+            var menuValidator = $("#menuForm").data('bootstrapValidator');
+            menuValidator.validate();
+            if(!menuValidator.isValid())return ;
+            $.post(menuUrl, $('#menuForm').serialize(), function(result) {
+                if(result.state==0){
+                    $('#memuModal').modal("hide");
+                    noty({
+                        text: '提示 - 操作成功!',
+                    });
+                    menuTable.ajax.reload();
+                }
+            }, 'json');
+        });
+        /*删除菜单*/
+        $('#menuInfo tbody').on( 'click', 'a#del', function () {
+            var data = $('#menuInfo').DataTable().row($(this).parents('tr')).data();
+            Ewin.confirm({ message: "确认要删除选择的数据吗？" }).on(function (e) {
+                if (!e) return;
+                $.post('deleteMenu.do', {id:data.id}, function(result) {
+                    if(result.state==0){
+                        noty({
+                            text: '提示 - 删除成功!',
+                        });
+                        menuTable.ajax.reload();
+                    }else {
+                        noty({
+                            text: '提示 - 删除失败!',
+                        });
+                    }
+                }, 'json');
+            });
+        });
+        /*删除根节点*/
+        $('#removeRoot').click(function () {
+            var root = $('#tree').treeview('getSelected');
+            if(root.length>0){
+                $.post('removeRoot.do', {rootId:root[0].id}, function(result) {
+                        noty({
+                            text: '提示 - 删除根目录成功!',
+                        });
+                    menuTable.ajax.reload();
+                    reloadMenu();
+                },"JSON");
+            }
+        });
+        /*重置menu表单*/
+        function menuFormReading(data,title){
+            $('#menuForm')[0].reset();//清空表单
+            $('#titleName').html(title);//设置标题
+            if(data){
+                $('#menuId').val(data.id);
+                $('#menuText').val(data.text);
+                $('#menuSort').val(data.sort);
+                $('#menuHref').val(data.href);
+                $('#menuIcon').val(data.icon);
+            }
+            $('#memuModal').modal("show"); //模态框显示
+        }
+        /*刷新菜单*/
+        function reloadMenu(){
+            $.post('selelctMenu.do',{},function (result) {
 
+                var $tree = $('#tree').treeview({
+                    data: result.content.rows,
+                    onNodeSelected: function(event, node) {
+                        if(node.parentId==undefined){
+                            menuTable.ajax.url( 'selectSubMenu.do?parentId='+node.id ).load();
+                            $('#addMenu').removeAttr('disabled');
+                            $('#rootMenuText').html(node.text);
+                            $('#parentId').val(node.id);
+                            $('#menuListInfo').show();
+                            $('#permissionListInfo').hide();
+                        }else if(node.parentId==0){
+                            permissionTable.ajax.url( 'selectSubMenu.do?parentId='+node.id ).load();
+                            $('#addPermission').removeAttr('disabled');
+                            $('#menuListInfo').hide();
+                            $('#permissionListInfo').show();
+                        }
+
+                    },
+                });
+            },'JSON');
+        }
+        /*菜单验证*/
         function formValidator(){
             $('#menuForm').bootstrapValidator({
                 message: 'This value is not valid',
@@ -444,6 +629,7 @@
                 }
             });
         }
+        /*根菜单验证*/
         function  rootFormValidator() {
             $('#rootMenuForm').bootstrapValidator({
                 message: 'This value is not valid',
