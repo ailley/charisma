@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.w3cmart.mapper.permission.PermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.w3cmart.entity.permission.Permission" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="permission_mark" property="permissionMark" jdbcType="VARCHAR" />
+    <result column="permission_des" property="permissionDes" jdbcType="VARCHAR" />
+    <result column="permission_type" property="permissionType" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="BIGINT" />
+    <result column="updete_date" property="updeteDate" jdbcType="BIGINT" />
+    <result column="menu_id" property="menuId" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="INTEGER" typeHandler="com.w3cmart.common.enums.StatusEnumHandler" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.statusCriteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.w3cmart.common.enums.StatusEnumHandler}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.w3cmart.common.enums.StatusEnumHandler} and #{criterion.secondValue,typeHandler=com.w3cmart.common.enums.StatusEnumHandler}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem,typeHandler=com.w3cmart.common.enums.StatusEnumHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+            <foreach collection="criteria.statusCriteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.w3cmart.common.enums.StatusEnumHandler}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value,typeHandler=com.w3cmart.common.enums.StatusEnumHandler} and #{criterion.secondValue,typeHandler=com.w3cmart.common.enums.StatusEnumHandler}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem,typeHandler=com.w3cmart.common.enums.StatusEnumHandler}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, permission_mark, permission_des, permission_type, create_date, updete_date, menu_id, 
+    status
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.w3cmart.entity.permission.PermissionCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from permission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="skipCount == 0" >
+      <if test="top > 0" >
+        limit ${top}
+      </if>
+    </if>
+    <if test="skipCount > 0" >
+      limit ${skipCount}
+      <if test="top > 0" >
+        , ${top}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from permission
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from permission
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.w3cmart.entity.permission.PermissionCriteria" >
+    delete from permission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.w3cmart.entity.permission.Permission" >
+    insert into permission (id, permission_mark, permission_des, 
+      permission_type, create_date, updete_date, 
+      menu_id, status
+      )
+    values (#{id,jdbcType=BIGINT}, #{permissionMark,jdbcType=VARCHAR}, #{permissionDes,jdbcType=VARCHAR}, 
+      #{permissionType,jdbcType=INTEGER}, #{createDate,jdbcType=BIGINT}, #{updeteDate,jdbcType=BIGINT}, 
+      #{menuId,jdbcType=BIGINT}, #{status,jdbcType=INTEGER,typeHandler=com.w3cmart.common.enums.StatusEnumHandler}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.w3cmart.entity.permission.Permission" >
+    insert into permission
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="permissionMark != null" >
+        permission_mark,
+      </if>
+      <if test="permissionDes != null" >
+        permission_des,
+      </if>
+      <if test="permissionType != null" >
+        permission_type,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updeteDate != null" >
+        updete_date,
+      </if>
+      <if test="menuId != null" >
+        menu_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="permissionMark != null" >
+        #{permissionMark,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionDes != null" >
+        #{permissionDes,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionType != null" >
+        #{permissionType,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=BIGINT},
+      </if>
+      <if test="updeteDate != null" >
+        #{updeteDate,jdbcType=BIGINT},
+      </if>
+      <if test="menuId != null" >
+        #{menuId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER,typeHandler=com.w3cmart.common.enums.StatusEnumHandler},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.w3cmart.entity.permission.PermissionCriteria" resultType="java.lang.Integer" >
+    select count(*) from permission
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update permission
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.permissionMark != null" >
+        permission_mark = #{record.permissionMark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permissionDes != null" >
+        permission_des = #{record.permissionDes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permissionType != null" >
+        permission_type = #{record.permissionType,jdbcType=INTEGER},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=BIGINT},
+      </if>
+      <if test="record.updeteDate != null" >
+        updete_date = #{record.updeteDate,jdbcType=BIGINT},
+      </if>
+      <if test="record.menuId != null" >
+        menu_id = #{record.menuId,jdbcType=BIGINT},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER,typeHandler=com.w3cmart.common.enums.StatusEnumHandler},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update permission
+    set id = #{record.id,jdbcType=BIGINT},
+      permission_mark = #{record.permissionMark,jdbcType=VARCHAR},
+      permission_des = #{record.permissionDes,jdbcType=VARCHAR},
+      permission_type = #{record.permissionType,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=BIGINT},
+      updete_date = #{record.updeteDate,jdbcType=BIGINT},
+      menu_id = #{record.menuId,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=INTEGER,typeHandler=com.w3cmart.common.enums.StatusEnumHandler}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.w3cmart.entity.permission.Permission" >
+    update permission
+    <set >
+      <if test="permissionMark != null" >
+        permission_mark = #{permissionMark,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionDes != null" >
+        permission_des = #{permissionDes,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionType != null" >
+        permission_type = #{permissionType,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=BIGINT},
+      </if>
+      <if test="updeteDate != null" >
+        updete_date = #{updeteDate,jdbcType=BIGINT},
+      </if>
+      <if test="menuId != null" >
+        menu_id = #{menuId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER,typeHandler=com.w3cmart.common.enums.StatusEnumHandler},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.w3cmart.entity.permission.Permission" >
+    update permission
+    set permission_mark = #{permissionMark,jdbcType=VARCHAR},
+      permission_des = #{permissionDes,jdbcType=VARCHAR},
+      permission_type = #{permissionType,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=BIGINT},
+      updete_date = #{updeteDate,jdbcType=BIGINT},
+      menu_id = #{menuId,jdbcType=BIGINT},
+      status = #{status,jdbcType=INTEGER,typeHandler=com.w3cmart.common.enums.StatusEnumHandler}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

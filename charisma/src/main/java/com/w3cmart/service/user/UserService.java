@@ -1,10 +1,9 @@
 package com.w3cmart.service.user;
 
-import com.w3cmart.entity.User;
-import com.w3cmart.entity.UserCriteria;
+import com.w3cmart.entity.user.User;
+import com.w3cmart.entity.user.UserCriteria;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Administrator on 2016/8/13.

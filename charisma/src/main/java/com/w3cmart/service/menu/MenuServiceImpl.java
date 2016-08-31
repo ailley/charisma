@@ -1,8 +1,8 @@
-package com.w3cmart.service.user;
+package com.w3cmart.service.menu;
 
-import com.w3cmart.entity.Menu;
-import com.w3cmart.entity.MenuCriteria;
-import com.w3cmart.mapper.MenuMapper;
+import com.w3cmart.entity.menu.Menu;
+import com.w3cmart.entity.menu.MenuCriteria;
+import com.w3cmart.mapper.menu.MenuMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

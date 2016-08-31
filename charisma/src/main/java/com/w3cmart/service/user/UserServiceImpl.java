@@ -1,8 +1,8 @@
 package com.w3cmart.service.user;
 
-import com.w3cmart.entity.User;
-import com.w3cmart.entity.UserCriteria;
-import com.w3cmart.mapper.UserMapper;
+import com.w3cmart.entity.user.User;
+import com.w3cmart.entity.user.UserCriteria;
+import com.w3cmart.mapper.user.UserMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

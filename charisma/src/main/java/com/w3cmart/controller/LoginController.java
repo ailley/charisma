@@ -1,6 +1,5 @@
 package com.w3cmart.controller;
 
-import com.w3cmart.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 

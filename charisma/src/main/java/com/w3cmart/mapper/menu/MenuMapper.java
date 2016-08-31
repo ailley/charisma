@@ -1,8 +1,8 @@
-package com.w3cmart.mapper;
+package com.w3cmart.mapper.menu;
 
 import com.h.common.admin.superpage.MapperSuper;
-import com.w3cmart.entity.Menu;
-import com.w3cmart.entity.MenuCriteria;
+import com.w3cmart.entity.menu.Menu;
+import com.w3cmart.entity.menu.MenuCriteria;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

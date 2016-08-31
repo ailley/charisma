@@ -1,9 +1,6 @@
 package com.w3cmart.dao.user;
 
-import com.w3cmart.entity.User;
-import com.w3cmart.mapper.UserMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import com.w3cmart.mapper.user.UserMapper;
 
 import javax.annotation.Resource;
 

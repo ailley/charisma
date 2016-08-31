@@ -1,7 +1,7 @@
 package com.w3cmart.realm;
 
-import com.w3cmart.entity.User;
-import com.w3cmart.entity.UserCriteria;
+import com.w3cmart.entity.user.User;
+import com.w3cmart.entity.user.UserCriteria;
 import com.w3cmart.service.user.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;

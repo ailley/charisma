@@ -1,8 +1,8 @@
-package com.w3cmart.mapper;
+package com.w3cmart.mapper.user;
 
 import com.h.common.admin.superpage.MapperSuper;
-import com.w3cmart.entity.User;
-import com.w3cmart.entity.UserCriteria;
+import com.w3cmart.entity.user.User;
+import com.w3cmart.entity.user.UserCriteria;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

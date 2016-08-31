@@ -2,9 +2,9 @@ package com.w3cmart.controller;
 
 import com.w3cmart.common.enums.StatusEnum;
 import com.w3cmart.common.util.ViewResult;
-import com.w3cmart.entity.Menu;
-import com.w3cmart.entity.MenuCriteria;
-import com.w3cmart.service.user.MenuService;
+import com.w3cmart.entity.menu.Menu;
+import com.w3cmart.entity.menu.MenuCriteria;
+import com.w3cmart.service.menu.MenuService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

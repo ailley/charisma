@@ -1,4 +1,4 @@
-package com.w3cmart.entity;
+package com.w3cmart.entity.menu;
 
 import com.h.common.admin.superpage.BeanSuper;
 import com.w3cmart.common.enums.StatusEnum;

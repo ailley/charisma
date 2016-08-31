@@ -146,7 +146,6 @@
                                 <tr>
                                     <th></th>
                                     <th></th>
-                                    <th>权限名</th>
                                     <th>权限标识</th>
                                     <th>权限说明</th>
                                     <th>权限类别</th>
@@ -157,7 +156,6 @@
                                 <tr>
                                     <th></th>
                                     <th></th>
-                                    <th>权限名</th>
                                     <th>权限标识</th>
                                     <th>权限说明</th>
                                     <th>权限类别</th>
@@ -196,19 +194,19 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <lable for="href" class="col-sm-2 control-label">菜单路径</lable>
+                            <label for="href" class="col-sm-2 control-label">菜单路径</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="href" placeholder="菜单路径">
                             </div>
                         </div>
                         <div class="form-group">
-                            <lable for="icon" class="col-sm-2 control-label">icon</lable>
+                            <label for="icon" class="col-sm-2 control-label">icon</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="icon" placeholder="icon">
                             </div>
                         </div>
                         <div class="form-group">
-                            <lable for="sort" class="col-sm-2 control-label">排序</lable>
+                            <label for="sort" class="col-sm-2 control-label">排序</label>
                             <div class="col-sm-10">
                                 <input type="number" class="form-control" name="sort" placeholder="排序">
                             </div>
@@ -276,6 +274,57 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="permissionModal" tabindex="-1" role="dialog" aria-labelledby="permissionModal" data-backdrop="static"
+         aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3 id="permissionTitleName">添加权限</h3>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal" id="permissionForm">
+                        <input type="hidden" id="permissionMenuId" name="menuId">
+                        <input type="hidden" id="permissionId" name="id">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">菜单目录</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static" id="permissionMenuText"></p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="permissionMark"  class="col-sm-2 control-label">权限标识</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="permissionMark" class="form-control" name="permissionMark" placeholder="权限标识">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="permissionDes" class="col-sm-2 control-label">权限描述</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" name="permissionDes" id="permissionDes" placeholder="权限描述">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="permissionType" class="col-sm-2 control-label">权限类别</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" id="permissionType" name="permissionType">
+                                    <option value="0">菜单权限</option>
+                                    <option value="1">按钮权限</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-default" data-dismiss="modal">关闭</a>
+                    <a href="#" class="btn btn-primary" data-dismiss="modal" id="savePermission">保存</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <jsp:include page="footer.jsp"/>
 
 </div><!--/.fluid-container-->
@@ -331,6 +380,7 @@
     var menuTable;
     var permissionTable;
     var menuUrl;
+    var permissionUrl;
     $(function () {
         reloadMenu();
 
@@ -393,6 +443,7 @@
             "sDom": "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
             "sPaginationType": "bootstrap",
             "scrollX": true,//水平滚动
+            "sAjaxDataProp":"content.rows",
             "columnDefs": [
                 {
                     orderable: false,
@@ -406,26 +457,31 @@
                 },
                 {
                     orderable: false,
-                    targets: 6
+                    targets: 5
                 }
             ],
             "columns": [
                 { "data": "id" },
                 { "data": null },
-                { "data": "text" },
-                { "data": "href" },
-                { "data": "icon" },
-                { "data": "sort" },
+                { "data": "permissionMark" },
+                { "data": "permissionDes" },
+                { "data": "permissionType" ,render:function (data, type, row) {
+                    if(data == 0) {
+                        return "菜单权限";
+                    }else {
+                        return "按钮权限";
+                    }
+                }},
                 {   "data":"",
                     render:function (data, type, row) {
                         return '<a class="btn btn-success" id="selectPermission">'+
                                 '<i class="glyphicon glyphicon-zoom-in icon-white"></i>'+
                                 ' 查询'+
-                                ' </a>'+
+                                ' </a> '+
                                 '<a class="btn btn-info" id="editPermission">'+
                                 '<i class="glyphicon glyphicon-edit icon-white"></i>'+
                                 ' 修改'+
-                                ' </a>'+
+                                ' </a> '+
                                 '<a class="btn btn-danger" id="delPermission">'+
                                 '<i class="glyphicon glyphicon-trash icon-white"></i>'+
                                 ' 删除'+
@@ -441,6 +497,7 @@
 
         rootFormValidator();
         formValidator();
+        permissionFormValidator();
 //        $('#expandAll').click(function () {
 //            $('#tree').treeview('expandAll', { levels: 2, silent: true });
 //        });
@@ -484,12 +541,68 @@
                 reloadMenu();
             }, 'json');
         });
+        /*添加权限*/
+        $('#addPermission').click(function () {
+            permissionUrl = 'addPermission.do';
+            $("#permissionForm  :input").attr("disabled",false);
+            $('#permissionId').val('');
+            permissionFormReading(null,"添加权限");
+        });
+        /*修改权限*/
+        $('#permissionInfo tbody').on( 'click', 'a#editPermission', function () {
+            !$("#permissionForm  :input").attr("disabled",false);
+            $('#savePermission').attr("disabled",false);
+            permissionUrl='updatePermission.do';
+            var data = $('#permissionInfo').DataTable().row($(this).parents('tr')).data();
+            permissionFormReading(data,"修改菜单");
+        } );
+        /* 查看权限*/
+        $('#permissionInfo tbody').on( 'click', 'a#selectPermission', function () {
+            var data = $('#permissionInfo').DataTable().row($(this).parents('tr')).data();
+            permissionFormReading(data,"查询菜单");
+            $("#permissionForm  :input").attr("disabled",true);
+            $('#savePermission').attr("disabled",true);
+        });
+        /*删除权限*/
+        $('#permissionInfo tbody').on( 'click', 'a#delPermission', function () {
+            var data = $('#permissionInfo').DataTable().row($(this).parents('tr')).data();
+            Ewin.confirm({ message: "确认要删除选择的数据吗？" }).on(function (e) {
+                if (!e) return;
+                $.post('delPermission.do', {id:data.id}, function(result) {
+                    if(result.state==0){
+                        noty({
+                            text: '提示 - 删除成功!',
+                        });
+                        permissionTable.ajax.reload();
+                    }else {
+                        noty({
+                            text: '提示 - 删除失败!',
+                        });
+                    }
+                }, 'json');
+            });
+        });
+        /*保存权限*/
+        $('#savePermission').click(function () {
+            var permissionValidator = $("#permissionForm").data('bootstrapValidator');
+            permissionValidator.validate();
+            if(!permissionValidator.isValid())return ;
+            $.post(permissionUrl, $('#permissionForm').serialize(), function(result) {
+                if(result.state==0){
+                    $('#permissionModal').modal("hide");
+                    noty({
+                        text: '提示 - 操作成功!',
+                    });
+                    permissionTable.ajax.reload();
+                }
+            }, 'json');
+        });
         /*添加菜单*/
         $('#addMenu').click(function () {
             menuUrl = 'addMenu.do';
             $("#menuForm  :input").attr("disabled",false);
             $('#menuId').val('');
-            menuFormReading(null,"添加用户");
+            menuFormReading(null,"添加菜单");
             $('#memuModal').modal('show');
         });
         /*修改菜单*/
@@ -498,12 +611,12 @@
             $('#saveMenu').attr("disabled",false);
             menuUrl='updateMenu.do';
             var data = $('#menuInfo').DataTable().row($(this).parents('tr')).data();
-            menuFormReading(data,"修改用户");
+            menuFormReading(data,"修改菜单");
         } );
         /* 查看菜单*/
         $('#menuInfo tbody').on( 'click', 'a#select', function () {
             var data = $('#menuInfo').DataTable().row($(this).parents('tr')).data();
-            menuFormReading(data,"查询用户");
+            menuFormReading(data,"查询菜单");
             $("#menuForm  :input").attr("disabled",true);
             $('#saveMenu').attr("disabled",true);
         });
@@ -555,6 +668,18 @@
             }
         });
         /*重置menu表单*/
+        function permissionFormReading(data,title){
+            $('#permissionForm')[0].reset();//清空表单
+            $('#titleName').html(title);//设置标题
+            if(data){
+                $('#permissionId').val(data.id);
+                $('#permissionMark').val(data.permissionMark);
+                $('#permissionDes').val(data.permissionDes);
+                $('#permissionType').val(data.permissionType);
+            }
+            $('#permissionModal').modal("show"); //模态框显示
+        }
+        /*重置menu表单*/
         function menuFormReading(data,title){
             $('#menuForm')[0].reset();//清空表单
             $('#titleName').html(title);//设置标题
@@ -582,8 +707,10 @@
                             $('#menuListInfo').show();
                             $('#permissionListInfo').hide();
                         }else if(node.parentId==0){
-                            permissionTable.ajax.url( 'selectSubMenu.do?parentId='+node.id ).load();
+                            permissionTable.ajax.url( 'selectPermission.do?menuId='+node.id ).load();
                             $('#addPermission').removeAttr('disabled');
+                            $('#permissionMenuText').html(node.text);
+                            $('#permissionMenuId').val(node.id);
                             $('#menuListInfo').hide();
                             $('#permissionListInfo').show();
                         }
@@ -666,10 +793,49 @@
                 }
             });
         }
+        function  permissionFormValidator() {
+            $('#permissionForm').bootstrapValidator({
+                message: 'This value is not valid',
+                feedbackIcons: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    permissionMark: {
+                        message: '菜单名不能为空',
+                        validators: {
+                            notEmpty: {
+                                message: '权限标识不能为空'
+                            }
+                        }
+                    },
+                    permissionDes: {
+                        validators: {
+                            notEmpty: {
+                                message: '权限标识不能为空'
+                            }
+                        }
+                    },
+                    permissionType: {
+                        validators: {
+                            notEmpty: {
+                                message: '权限类别不能为空'
+                            }
+                        }
+                    },
+                }
+            });
+        }
         /*菜单关闭时重置验证*/
         $('#memuModal').on('hidden.bs.modal', function() {
             $("#menuForm").data('bootstrapValidator').resetForm();
             formValidator();
+        });
+        /*权限关闭时重置验证*/
+        $('#permissionModal').on('hidden.bs.modal', function() {
+            $("#permissionForm").data('bootstrapValidator').resetForm();
+            permissionFormValidator();
         });
     });
     

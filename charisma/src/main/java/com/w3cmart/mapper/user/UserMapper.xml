@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.w3cmart.mapper.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.w3cmart.entity.User" >
+<mapper namespace="com.w3cmart.mapper.user.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.w3cmart.entity.user.User" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="uid" property="uid" jdbcType="VARCHAR" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
@@ -117,7 +117,7 @@
     id, uid, user_name, password, name, type, qq, email, gender, head, note, create_time, 
     update_time, status
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.w3cmart.entity.UserCriteria" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.w3cmart.entity.user.UserCriteria" >
     select
     <if test="distinct" >
       distinct
@@ -152,13 +152,13 @@
     delete from user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.w3cmart.entity.UserCriteria" >
+  <delete id="deleteByExample" parameterType="com.w3cmart.entity.user.UserCriteria" >
     delete from user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.w3cmart.entity.User" >
+  <insert id="insert" parameterType="com.w3cmart.entity.user.User" >
     insert into user (id, uid, user_name, 
       password, name, type, 
       qq, email, gender, 
@@ -172,7 +172,7 @@
       #{updateTime,jdbcType=BIGINT}, #{status,jdbcType=INTEGER,typeHandler=com.w3cmart.common.enums.StatusEnumHandler}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.w3cmart.entity.User" >
+  <insert id="insertSelective" parameterType="com.w3cmart.entity.user.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -263,7 +263,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.w3cmart.entity.UserCriteria" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.w3cmart.entity.user.UserCriteria" resultType="java.lang.Integer" >
     select count(*) from user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -339,7 +339,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.w3cmart.entity.User" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.w3cmart.entity.user.User" >
     update user
     <set >
       <if test="uid != null" >
@@ -384,7 +384,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.w3cmart.entity.User" >
+  <update id="updateByPrimaryKey" parameterType="com.w3cmart.entity.user.User" >
     update user
     set uid = #{uid,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.w3cmart.mapper.MenuMapper" >
-  <resultMap id="BaseResultMap" type="com.w3cmart.entity.Menu" >
+<mapper namespace="com.w3cmart.mapper.menu.MenuMapper" >
+  <resultMap id="BaseResultMap" type="com.w3cmart.entity.menu.Menu" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="text" property="text" jdbcType="VARCHAR" />
     <result column="parent_id" property="parentId" jdbcType="BIGINT" />
@@ -109,7 +109,7 @@
   <sql id="Base_Column_List" >
     id, text, parent_id, href, icon, sort, status
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.w3cmart.entity.MenuCriteria" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.w3cmart.entity.menu.MenuCriteria" >
     select
     <if test="distinct" >
       distinct
@@ -144,13 +144,13 @@
     delete from menu
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.w3cmart.entity.MenuCriteria" >
+  <delete id="deleteByExample" parameterType="com.w3cmart.entity.menu.MenuCriteria" >
     delete from menu
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.w3cmart.entity.Menu" >
+  <insert id="insert" parameterType="com.w3cmart.entity.menu.Menu" >
     insert into menu (id, text, parent_id, 
       href, icon, sort, status
       )
@@ -158,7 +158,7 @@
       #{href,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{sort,jdbcType=BIGINT}, #{status,jdbcType=BIT,typeHandler=com.w3cmart.common.enums.StatusEnumHandler}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.w3cmart.entity.Menu" >
+  <insert id="insertSelective" parameterType="com.w3cmart.entity.menu.Menu" >
     insert into menu
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -207,7 +207,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.w3cmart.entity.MenuCriteria" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.w3cmart.entity.menu.MenuCriteria" resultType="java.lang.Integer" >
     select count(*) from menu
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -255,7 +255,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.w3cmart.entity.Menu" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.w3cmart.entity.menu.Menu" >
     update menu
     <set >
       <if test="text != null" >
@@ -279,7 +279,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.w3cmart.entity.Menu" >
+  <update id="updateByPrimaryKey" parameterType="com.w3cmart.entity.menu.Menu" >
     update menu
     set text = #{text,jdbcType=VARCHAR},
       parent_id = #{parentId,jdbcType=BIGINT},
