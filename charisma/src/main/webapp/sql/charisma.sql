@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2016-08-28 22:19:14
+Date: 2016-08-31 22:22:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,14 +28,35 @@ CREATE TABLE `menu` (
   `sort` bigint(1) DEFAULT '0' COMMENT '排序字段',
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 - 正常 1 - 失效',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
 INSERT INTO `menu` VALUES ('1', '系统管理', '0', '#', 'glyphicon glyphicon-list', '10', '0');
-INSERT INTO `menu` VALUES ('2', '用户管理', '1', 'user.htm', '', '11', '0');
 INSERT INTO `menu` VALUES ('3', '菜单管理', '1', 'menu.htm', '', '12', '0');
+INSERT INTO `menu` VALUES ('4', '用户管理', '1', 'user.htm', '', '11', '0');
+
+-- ----------------------------
+-- Table structure for `permission`
+-- ----------------------------
+DROP TABLE IF EXISTS `permission`;
+CREATE TABLE `permission` (
+  `id` bigint(32) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `permission_mark` varchar(32) NOT NULL DEFAULT '' COMMENT '权限标识字段',
+  `permission_des` varchar(32) DEFAULT '' COMMENT '权限描述',
+  `permission_type` int(1) DEFAULT NULL COMMENT '权限类别',
+  `create_date` bigint(32) DEFAULT NULL COMMENT '创建时间',
+  `updete_date` bigint(32) DEFAULT NULL COMMENT '修改时间',
+  `menu_id` bigint(32) NOT NULL COMMENT '关联menu表',
+  `status` int(1) NOT NULL COMMENT '0 有效 1 无效',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of permission
+-- ----------------------------
+INSERT INTO `permission` VALUES ('1', 'visit:user', '查看菜单管理', '0', '1472651594671', '1472652875018', '4', '0');
 
 -- ----------------------------
 -- Table structure for `user`
