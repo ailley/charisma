@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2016-08-31 22:22:46
+Date: 2016-09-01 22:47:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,7 +28,7 @@ CREATE TABLE `menu` (
   `sort` bigint(1) DEFAULT '0' COMMENT '排序字段',
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 - 正常 1 - 失效',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
@@ -36,6 +36,7 @@ CREATE TABLE `menu` (
 INSERT INTO `menu` VALUES ('1', '系统管理', '0', '#', 'glyphicon glyphicon-list', '10', '0');
 INSERT INTO `menu` VALUES ('3', '菜单管理', '1', 'menu.htm', '', '12', '0');
 INSERT INTO `menu` VALUES ('4', '用户管理', '1', 'user.htm', '', '11', '0');
+INSERT INTO `menu` VALUES ('5', '角色管理', '1', 'role.htm', '', '13', '0');
 
 -- ----------------------------
 -- Table structure for `permission`
@@ -51,12 +52,41 @@ CREATE TABLE `permission` (
   `menu_id` bigint(32) NOT NULL COMMENT '关联menu表',
   `status` int(1) NOT NULL COMMENT '0 有效 1 无效',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of permission
 -- ----------------------------
-INSERT INTO `permission` VALUES ('1', 'visit:user', '查看菜单管理', '0', '1472651594671', '1472652875018', '4', '0');
+INSERT INTO `permission` VALUES ('1', 'visit:user', '查看用户管理', '0', '1472651594671', '1472728647307', '4', '0');
+INSERT INTO `permission` VALUES ('2', 'add:user', '添加用户', '1', '1472728431007', '1472728448800', '4', '0');
+INSERT INTO `permission` VALUES ('3', 'update:user', '修改用户', '1', '1472728445330', null, '4', '0');
+INSERT INTO `permission` VALUES ('4', 'delete:user', '删除用户', '0', '1472728474692', null, '4', '0');
+INSERT INTO `permission` VALUES ('5', 'select:user', '查询用户', '0', '1472728521513', null, '4', '0');
+INSERT INTO `permission` VALUES ('6', 'visit:menu', '查看菜单管理', '0', '1472728636688', null, '3', '0');
+INSERT INTO `permission` VALUES ('7', 'add:rootMenu', '添加根目录', '1', '1472728710472', null, '3', '0');
+INSERT INTO `permission` VALUES ('8', 'add:menu', '添加菜单', '1', '1472728732156', null, '3', '0');
+INSERT INTO `permission` VALUES ('9', 'delete:rootMenu', '删除根目录', '1', '1472728756664', null, '3', '0');
+INSERT INTO `permission` VALUES ('10', 'select:menu', '查询菜单', '1', '1472728814600', null, '3', '0');
+INSERT INTO `permission` VALUES ('11', 'update:menu', '修改菜单', '1', '1472728832794', null, '3', '0');
+INSERT INTO `permission` VALUES ('12', 'delete:menu', '删除菜单', '1', '1472728852386', null, '3', '0');
+
+-- ----------------------------
+-- Table structure for `role`
+-- ----------------------------
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role` (
+  `id` bigint(32) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `role_name` varchar(32) NOT NULL DEFAULT '' COMMENT '角色名',
+  `role_code` varchar(32) NOT NULL DEFAULT '' COMMENT '角色编码',
+  `role_des` varchar(32) NOT NULL DEFAULT '' COMMENT '角色描述',
+  `status` int(1) NOT NULL COMMENT '0 有效 1 无效',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of role
+-- ----------------------------
+INSERT INTO `role` VALUES ('1', '超级管理员', 'SUPERADMIN', '超级管理员', '0');
 
 -- ----------------------------
 -- Table structure for `user`
