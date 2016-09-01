@@ -8,7 +8,7 @@
 --%>
 <html>
 <head>
-    <title>菜单</title>
+    <title>菜单管理</title>
     <jsp:include page="top.jsp"/>
     <style>
         #addMenu,#addPermission{

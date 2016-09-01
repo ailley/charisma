@@ -8,7 +8,7 @@
 --%>
 <html>
 <head>
-    <title>菜单</title>
+    <title>用户管理</title>
     <jsp:include page="top.jsp"/>
     <style>
         #add{

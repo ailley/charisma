@@ -47,6 +47,7 @@
                     <ul class="nav nav-pills nav-stacked">
                         <li><a href="user.htm">用户管理</a></li>
                         <li><a href="menu.htm">菜单管理</a></li>
+                        <li><a href="role.htm">角色管理</a></li>
                     </ul>
                 </li>
             </ul>
