@@ -299,6 +299,66 @@ public class UserCriteria implements CriteriaSuper {
             return (Criteria) this;
         }
 
+        public Criteria andRoleIdIsNull() {
+            addCriterion("role_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdIsNotNull() {
+            addCriterion("role_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdEqualTo(Long value) {
+            addCriterion("role_id =", value, "roleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdNotEqualTo(Long value) {
+            addCriterion("role_id <>", value, "roleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdGreaterThan(Long value) {
+            addCriterion("role_id >", value, "roleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("role_id >=", value, "roleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdLessThan(Long value) {
+            addCriterion("role_id <", value, "roleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdLessThanOrEqualTo(Long value) {
+            addCriterion("role_id <=", value, "roleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdIn(List<Long> values) {
+            addCriterion("role_id in", values, "roleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdNotIn(List<Long> values) {
+            addCriterion("role_id not in", values, "roleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdBetween(Long value1, Long value2) {
+            addCriterion("role_id between", value1, value2, "roleId");
+            return (Criteria) this;
+        }
+
+        public Criteria andRoleIdNotBetween(Long value1, Long value2) {
+            addCriterion("role_id not between", value1, value2, "roleId");
+            return (Criteria) this;
+        }
+
         public Criteria andUserNameIsNull() {
             addCriterion("user_name is null");
             return (Criteria) this;
@@ -569,6 +629,76 @@ public class UserCriteria implements CriteriaSuper {
             return (Criteria) this;
         }
 
+        public Criteria andHeadIsNull() {
+            addCriterion("head is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadIsNotNull() {
+            addCriterion("head is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadEqualTo(String value) {
+            addCriterion("head =", value, "head");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadNotEqualTo(String value) {
+            addCriterion("head <>", value, "head");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadGreaterThan(String value) {
+            addCriterion("head >", value, "head");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadGreaterThanOrEqualTo(String value) {
+            addCriterion("head >=", value, "head");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadLessThan(String value) {
+            addCriterion("head <", value, "head");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadLessThanOrEqualTo(String value) {
+            addCriterion("head <=", value, "head");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadLike(String value) {
+            addCriterion("head like", value, "head");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadNotLike(String value) {
+            addCriterion("head not like", value, "head");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadIn(List<String> values) {
+            addCriterion("head in", values, "head");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadNotIn(List<String> values) {
+            addCriterion("head not in", values, "head");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadBetween(String value1, String value2) {
+            addCriterion("head between", value1, value2, "head");
+            return (Criteria) this;
+        }
+
+        public Criteria andHeadNotBetween(String value1, String value2) {
+            addCriterion("head not between", value1, value2, "head");
+            return (Criteria) this;
+        }
+
         public Criteria andQqIsNull() {
             addCriterion("qq is null");
             return (Criteria) this;
@@ -766,76 +896,6 @@ public class UserCriteria implements CriteriaSuper {
 
         public Criteria andGenderNotBetween(Integer value1, Integer value2) {
             addCriterion("gender not between", value1, value2, "gender");
-            return (Criteria) this;
-        }
-
-        public Criteria andHeadIsNull() {
-            addCriterion("head is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andHeadIsNotNull() {
-            addCriterion("head is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andHeadEqualTo(String value) {
-            addCriterion("head =", value, "head");
-            return (Criteria) this;
-        }
-
-        public Criteria andHeadNotEqualTo(String value) {
-            addCriterion("head <>", value, "head");
-            return (Criteria) this;
-        }
-
-        public Criteria andHeadGreaterThan(String value) {
-            addCriterion("head >", value, "head");
-            return (Criteria) this;
-        }
-
-        public Criteria andHeadGreaterThanOrEqualTo(String value) {
-            addCriterion("head >=", value, "head");
-            return (Criteria) this;
-        }
-
-        public Criteria andHeadLessThan(String value) {
-            addCriterion("head <", value, "head");
-            return (Criteria) this;
-        }
-
-        public Criteria andHeadLessThanOrEqualTo(String value) {
-            addCriterion("head <=", value, "head");
-            return (Criteria) this;
-        }
-
-        public Criteria andHeadLike(String value) {
-            addCriterion("head like", value, "head");
-            return (Criteria) this;
-        }
-
-        public Criteria andHeadNotLike(String value) {
-            addCriterion("head not like", value, "head");
-            return (Criteria) this;
-        }
-
-        public Criteria andHeadIn(List<String> values) {
-            addCriterion("head in", values, "head");
-            return (Criteria) this;
-        }
-
-        public Criteria andHeadNotIn(List<String> values) {
-            addCriterion("head not in", values, "head");
-            return (Criteria) this;
-        }
-
-        public Criteria andHeadBetween(String value1, String value2) {
-            addCriterion("head between", value1, value2, "head");
-            return (Criteria) this;
-        }
-
-        public Criteria andHeadNotBetween(String value1, String value2) {
-            addCriterion("head not between", value1, value2, "head");
             return (Criteria) this;
         }
 

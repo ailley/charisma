@@ -99,4 +99,28 @@ public class UserController {
         }
         return map;
     }
+
+    @RequestMapping("selectUserNoRole")
+    @ResponseBody
+    public String selectUserNoRole(){
+        UserCriteria userCriteria = new UserCriteria();
+        UserCriteria.Criteria criteria = userCriteria.createCriteria();
+        criteria.andRoleIdIsNull();
+        List<User> list = userService.selectByExample(userCriteria);
+        return ViewResult.newInstance().rows(list).json();
+    }
+
+    @RequestMapping("insertRoleId")
+    @ResponseBody
+    public String inserRoleId(String userIds,String roleId){
+        String userIdArray[] = userIds.split(",");
+        for (String s : userIdArray) {
+            User user = new User();
+            user.setId(Long.parseLong(s));
+            user.setRoleId(Long.parseLong(roleId));
+            userService.update(user);
+        }
+        return ViewResult.newInstance().json();
+    }
+
 }

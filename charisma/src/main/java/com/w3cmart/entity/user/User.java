@@ -9,6 +9,8 @@ public class User implements BeanSuper {
 
     private String uid;
 
+    private Long roleId;
+
     private String userName;
 
     private String password;
@@ -17,13 +19,13 @@ public class User implements BeanSuper {
 
     private Integer type;
 
+    private String head;
+
     private String qq;
 
     private String email;
 
     private Integer gender;
-
-    private String head;
 
     private String note;
 
@@ -47,6 +49,14 @@ public class User implements BeanSuper {
 
     public void setUid(String uid) {
         this.uid = uid == null ? null : uid.trim();
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
     public String getUserName() {
@@ -81,6 +91,14 @@ public class User implements BeanSuper {
         this.type = type;
     }
 
+    public String getHead() {
+        return head;
+    }
+
+    public void setHead(String head) {
+        this.head = head == null ? null : head.trim();
+    }
+
     public String getQq() {
         return qq;
     }
@@ -103,14 +121,6 @@ public class User implements BeanSuper {
 
     public void setGender(Integer gender) {
         this.gender = gender;
-    }
-
-    public String getHead() {
-        return head;
-    }
-
-    public void setHead(String head) {
-        this.head = head == null ? null : head.trim();
     }
 
     public String getNote() {
@@ -153,14 +163,15 @@ public class User implements BeanSuper {
     public  <T extends User> T copy(T bean) {
         bean.setId(getId());
         bean.setUid(getUid());
+        bean.setRoleId(getRoleId());
         bean.setUserName(getUserName());
         bean.setPassword(getPassword());
         bean.setName(getName());
         bean.setType(getType());
+        bean.setHead(getHead());
         bean.setQq(getQq());
         bean.setEmail(getEmail());
         bean.setGender(getGender());
-        bean.setHead(getHead());
         bean.setNote(getNote());
         bean.setCreateTime(getCreateTime());
         bean.setUpdateTime(getUpdateTime());
@@ -176,14 +187,15 @@ public class User implements BeanSuper {
         return "{" + 
         	", id:" + getId() + 
         	", uid:" + getUid() + 
+        	", roleId:" + getRoleId() + 
         	", userName:" + getUserName() + 
         	", password:" + getPassword() + 
         	", name:" + getName() + 
         	", type:" + getType() + 
+        	", head:" + getHead() + 
         	", qq:" + getQq() + 
         	", email:" + getEmail() + 
         	", gender:" + getGender() + 
-        	", head:" + getHead() + 
         	", note:" + getNote() + 
         	", createTime:" + getCreateTime() + 
         	", updateTime:" + getUpdateTime() + 

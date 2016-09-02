@@ -21,8 +21,20 @@
             top: 38px;
             z-index: 100;
         }
+        #assignedUser{
+            position: absolute;
+            left: 248px;
+            top: 38px;
+            z-index: 100;
+        }
+        #assignedPermission{
+            position: absolute;
+            left: 355px;
+            top: 38px;
+            z-index: 100;
+        }
         @media  screen and (max-width: 639px){
-            #addRole {
+            #addRole ,#assignedUser,#assignedPermission{
                 position: static;
                 display: block;
                 margin: 5px auto;
@@ -67,7 +79,9 @@
                             </div>
                         </div>
                         <div class="box-content">
-                            <a class="btn btn-primary btn-position-table" id="addRole" type="button"><i class="glyphicon glyphicon-trash icon-white"></i> 添加</a>
+                            <a class="btn btn-primary btn-position-table" id="addRole" type="button"><i class="glyphicon glyphicon-plus icon-white"></i> 添加</a>
+                            <a class="btn btn-info btn-position-table" id="assignedUser" type="button"><i class="glyphicon glyphicon-user icon-white"></i> 分配人员</a>
+                            <a class="btn btn-success btn-position-table" id="assignedPermission" type="button"><i class="glyphicon glyphicon-stats icon-white"></i> 分配权限</a>
                             <table id="roleInfo" class="table table-striped table-bordered bootstrap-datatable datatable responsive" cellspacing="0" width="100%">
                                 <thead>
                                 <tr>
@@ -103,7 +117,7 @@
 
     <hr>
 
-    <div class="modal fade" id="roleModal" tabindex="-1" role="dialog" aria-labelledby="roleLabel" data-backdrop="static"
+    <div class="modal fade" id="roleModal" tabindex="-1" role="dialog" aria-labelledby="roleModal" data-backdrop="static"
          aria-hidden="true">
 
         <div class="modal-dialog modal-lg">
@@ -143,6 +157,44 @@
         </div>
     </div>
 
+    <div class="modal fade" id="assignedUserModal" tabindex="-1" role="dialog" aria-labelledby="assignedUserModal" data-backdrop="static"
+         aria-hidden="true">
+
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3 id="assigned-user-title">人员分配</h3>
+                </div>
+                <div class="modal-body">
+                    <table id="userInfo" class="table table-striped table-bordered bootstrap-datatable datatable responsive" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>用户名</th>
+                            <th>姓名</th>
+                            <th>邮箱</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>用户名</th>
+                            <th>姓名</th>
+                            <th>邮箱</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-default" data-dismiss="modal">关闭</a>
+                    <a href="#" class="btn btn-primary" id="saveassignedUser">保存</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <jsp:include page="footer.jsp"/>
 
 </div><!--/.fluid-container-->
@@ -151,8 +203,12 @@
 <script src="<%=basePath%>static/js/dataTables.select.min.js"></script>
 <script type="text/javascript">
     var roleTable;
+    var userTable;
     var roleUrl;
+    var roleData;
+//    var userData;
     $(function () {
+
         roleFormValidator();
         roleTable=$('#roleInfo').DataTable({
             dom: "Bfrtip",
@@ -210,6 +266,96 @@
                 decimal: ",",
             },
         });
+
+        userTable=$('#userInfo').DataTable({
+            dom: "Bfrtip",
+            "ajax":"selectUserNoRole.do",//ajax请求后台JSON数据
+            "sDom": "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
+            "sPaginationType": "bootstrap",
+            "sAjaxDataProp":"content.rows",
+            "columnDefs": [
+                {
+                    orderable: false,
+                    visible:true,
+                    className: 'select-checkbox',
+                    targets: 0
+                },
+                {
+                    orderable: false,
+                    visible:false,
+                    searchable: false,
+                    targets: 1
+                }
+            ],
+            select: {
+                style:    'multi',
+                selector: 'td:first-child',
+                rows: {
+                    _: "您选中了 %d 条",
+                    0: "单击一行以选择它",
+                    1: "只能选择一条"
+                }
+            },
+            "columns": [
+                { "data": "" ,render:function(){return ""} },
+                { "data": "id" },
+                { "data": "userName" },
+                { "data": "name" },
+                { "data": "email" },
+            ],
+            oLanguage: {  //对表格国际化
+                sUrl:"language.json",
+                decimal: ",",
+            },
+        });
+        roleTable.on( 'select', function ( e, dt, type, indexes ) {
+            roleData = roleTable.rows( indexes ).data().toArray()[0];
+        } ) .on( 'deselect', function ( e, dt, type, indexes ) {
+            roleData = null;
+        } );
+//        userTable.on( 'select', function ( e, dt, type, indexes ) {
+//            userData = userTable.rows( indexes ).data().toArray();
+//        } ).on( 'deselect', function ( e, dt, type, indexes ) {
+//            userData = null;
+//        } );
+        $('#saveassignedUser').click(function () {
+            var userIds="";
+            var userData=userTable.rows('.selected').data();
+            if (!userData){
+                noty({
+                    text: '提示 - 请先选择人员!',
+                });
+                return;
+            }
+            for(var x in userData){
+                if(userData[x].id){
+                    userIds +=userData[x].id+",";
+                }
+            }
+            $.post('insertRoleId.do',{userIds:userIds,roleId:roleData.id},function (result) {
+                if(result.state==0){
+                    $('#assignedUserModal').modal("hide");
+                    userTable.ajax.reload();
+                    noty({
+                        text: '提示 - 操作成功!',
+                    });
+
+                }
+            },'json');
+        });
+        /*分配人员*/
+        $('#assignedUser').click(function () {
+            if(!roleData){
+                noty({
+                    text: '提示 - 请先选择角色!',
+                });
+                return;
+            }
+            userTable.ajax.reload();
+            $('#assignedUserModal').modal('show');
+        });
+
+
         /*添加角色*/
         $('#addRole').on( 'click', function () {
             roleUrl='insertRole.do';
@@ -276,6 +422,10 @@
             $("#roleForm").data('bootstrapValidator').resetForm();
             roleFormValidator();
         });
+//        /*分配人员对话框隐藏清空roleData*/
+//        $('#assignedUserModal').on('hidden.bs.modal', function() {
+//            roleData=null;
+//        });
         /*表单验证*/
         function roleFormValidator(){
             $('#roleForm').bootstrapValidator({
@@ -287,7 +437,6 @@
                 },
                 fields: {
                     roleName: {
-                        threshold :  6 ,
                         message: '角色名不能为空',
                         validators: {
                             notEmpty: {
