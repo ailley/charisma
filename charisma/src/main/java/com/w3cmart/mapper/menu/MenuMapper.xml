@@ -289,4 +289,20 @@
       status = #{status,jdbcType=BIT,typeHandler=com.w3cmart.common.enums.StatusEnumHandler}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="selectByUserName" parameterType="String"  resultMap="BaseResultMap">
+   SELECT
+   text,
+	parent_id,
+	href,
+	icon,
+	sort,
+	STATUS
+    from menu  m
+    LEFT JOIN role_menu rm
+    on m.id = rm.menu_id
+    LEFT JOIN (SELECT user_name,role_id from user)u
+    on rm.role_id =u.role_id
+    where u.user_name =#{userName}
+
+  </select>
 </mapper>

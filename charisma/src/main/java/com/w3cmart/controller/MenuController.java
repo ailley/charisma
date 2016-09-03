@@ -4,7 +4,15 @@ import com.w3cmart.common.enums.StatusEnum;
 import com.w3cmart.common.util.ViewResult;
 import com.w3cmart.entity.menu.Menu;
 import com.w3cmart.entity.menu.MenuCriteria;
+import com.w3cmart.entity.roleMenu.RoleMenu;
+import com.w3cmart.entity.roleMenu.RoleMenuCriteria;
+import com.w3cmart.entity.user.User;
+import com.w3cmart.entity.user.UserCriteria;
 import com.w3cmart.service.menu.MenuService;
+import com.w3cmart.service.roleMenu.RoleMenuService;
+import com.w3cmart.service.user.UserService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +27,7 @@ import java.util.Map;
  */
 @Controller
 public class MenuController {
+
 
     @Resource
     private MenuService menuService;
@@ -99,4 +108,12 @@ public class MenuController {
         menuService.deleteMenu(rootId);
         return ViewResult.newInstance().json();
     }
+    @RequestMapping("showMenu")
+    @ResponseBody
+    public String showMenu(){
+        String subject = (String)SecurityUtils.getSubject().getPrincipal();
+        List<Menu> list = menuService.selectByUserName(subject);
+        return ViewResult.newInstance().rows(list).json();
+    }
+
 }

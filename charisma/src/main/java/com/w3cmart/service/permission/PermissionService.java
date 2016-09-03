@@ -16,5 +16,7 @@ public interface PermissionService {
 
     int delete(Long id);
 
+    int deleteByExampler(PermissionCriteria permissionCriteria);
+
     List<Permission> selectByExampler(PermissionCriteria permissionCriteria);
 }

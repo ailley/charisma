@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository("menuMapper")
 public interface MenuMapper extends MapperSuper {
+
+    List<Menu> selectByUserName(String userName);
+
     int countByExample(MenuCriteria example);
 
     int deleteByExample(MenuCriteria example);

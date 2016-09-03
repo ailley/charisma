@@ -18,4 +18,6 @@ public interface MenuService {
 
     List<Menu> selectByExample(MenuCriteria menuCriteria);
 
+    List<Menu> selectByUserName(String userName);
+
 }

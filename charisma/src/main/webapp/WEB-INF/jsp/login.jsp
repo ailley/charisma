@@ -35,7 +35,7 @@
                             ${error}
                         </c:when>
                         <c:when test="${error == null}">
-                            Please login with your Username and Password.
+                            <span id="validate-info">Please login with your Username and Password.</span>
                         </c:when>
                     </c:choose>
                 </div>
@@ -43,13 +43,13 @@
                     <fieldset>
                         <div class="input-group input-group-lg">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user red"></i></span>
-                            <input type="text" class="form-control" name="userName" placeholder="Username">
+                            <input type="text" class="form-control" name="userName" id="userName"placeholder="Username">
                         </div>
                         <div class="clearfix"></div><br>
 
                         <div class="input-group input-group-lg">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-lock red"></i></span>
-                            <input type="password" class="form-control" name="password" placeholder="Password">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                         </div>
                         <div class="clearfix"></div>
 
@@ -71,6 +71,14 @@
 </div><!--/.fluid-container-->
 
 <jsp:include page="down.jsp"/>
+<script>
+    $("form").submit(function(e){
+        if(!$('#userName').val() || !$('#password').val()){
+            $('#validate-info').html('请输入用户名密码！');
+            return false;
+        }
+    });
 
+</script>
 </body>
 </html>

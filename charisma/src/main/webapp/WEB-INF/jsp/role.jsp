@@ -60,7 +60,7 @@
                         <a href="#">首页</a>
                     </li>
                     <li>
-                        <a href="#">菜单管理</a>
+                        <a href="#">角色管理</a>
                     </li>
                 </ul>
             </div>
@@ -69,7 +69,7 @@
                 <div class="box col-md-12">
                     <div class="box-inner">
                         <div class="box-header well" data-original-title="">
-                            <h2><i class="glyphicon glyphicon-user"></i> 菜单管理</h2>
+                            <h2><i class="glyphicon glyphicon-user"></i> 角色管理</h2>
 
                             <div class="box-icon">
                                 <a href="#" class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog"></i></a>
@@ -111,6 +111,54 @@
 
             </div><!--/row-->
 
+            <div class="row">
+                <div class="box col-md-12">
+                    <div class="box-inner">
+                        <div class="box-header well" data-original-title="">
+                            <h2><i class="glyphicon glyphicon-user"></i> 用户角色</h2>
+
+                            <div class="box-icon">
+                                <a href="#" class="btn btn-setting btn-round btn-default"><i class="glyphicon glyphicon-cog"></i></a>
+                                <a href="#" class="btn btn-minimize btn-round btn-default"><i
+                                        class="glyphicon glyphicon-chevron-up"></i></a>
+                                <a href="#" class="btn btn-close btn-round btn-default"><i class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </div>
+                        <div class="box-content">
+                            <table id="userTable" class="table table-striped table-bordered bootstrap-datatable datatable responsive" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>用户名</th>
+                                    <th>姓名</th>
+                                    <th>性别</th>
+                                    <th>QQ</th>
+                                    <th>邮箱</th>
+                                    <th>类别</th>
+                                    <th>状态</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>用户名</th>
+                                    <th>姓名</th>
+                                    <th>性别</th>
+                                    <th>QQ</th>
+                                    <th>邮箱</th>
+                                    <th>类别</th>
+                                    <th>状态</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--/span-->
+
+            </div><!--/row-->
             <!-- content ends -->
         </div><!--/#content.col-md-0-->
     </div><!--/fluid-row-->
@@ -195,6 +243,26 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade" id="assignedPermissionModal" tabindex="-1" role="dialog" aria-labelledby="assignedPermissionModal" data-backdrop="static"
+         aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3 id="assigned-permission-title">权限分配</h3>
+                </div>
+                <div class="modal-body">
+                    <div id="permissionTree"></div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-default" data-dismiss="modal">关闭</a>
+                    <a href="#" class="btn btn-primary" id="saveassignedPermission">保存</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <jsp:include page="footer.jsp"/>
 
 </div><!--/.fluid-container-->
@@ -266,7 +334,60 @@
                 decimal: ",",
             },
         });
-
+        table = $('#userTable').DataTable({
+            dom: "Bfrtip",
+            "sDom": "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
+            "sPaginationType": "bootstrap",
+            "sAjaxDataProp":"content.rows",
+            "columnDefs": [
+                {
+                    orderable: false,
+                    visible:false,
+                    targets: 0
+                },
+                {
+                    orderable: false,
+                    searchable: false,
+                    targets: 1
+                }
+            ],
+            "columns": [
+                { "data": "id" },
+                { "data": null },
+                { "data": "userName" },
+                { "data": "name" },
+                { "data": "gender" ,
+                    render:function (data, type, row) {
+                        if(data){return "男"}else{return "女"}
+                    }
+                },
+                { "data": "qq" },
+                { "data": "email" },
+                { "data": "type" ,
+                    render:function (data, type, row) {
+                        if(data){return "一般用户"}else{return "系统用户"}
+                    }
+                },
+                { "data": "status" ,
+                    render:function (data, type, row) {
+                        if(data=="DISABLE"){
+                            return '<span class="label-default label label-danger">失效</span>';
+                        }else{
+                            return '<span class="label-success label label-default">有效</span>';
+                        }
+                    }
+                }
+            ],
+            oLanguage: {  //对表格国际化
+                sUrl:"language.json",
+                decimal: ",",
+            },
+        });
+        table.on( 'order.dt search.dt', function () {
+            table.column(1, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                cell.innerHTML = i+1;
+            } );
+        } ).draw();
         userTable=$('#userInfo').DataTable({
             dom: "Bfrtip",
             "ajax":"selectUserNoRole.do",//ajax请求后台JSON数据
@@ -310,6 +431,7 @@
         });
         roleTable.on( 'select', function ( e, dt, type, indexes ) {
             roleData = roleTable.rows( indexes ).data().toArray()[0];
+            table.ajax.url( 'selectUserByRoleId.do?roleId='+roleData.id ).load();
         } ) .on( 'deselect', function ( e, dt, type, indexes ) {
             roleData = null;
         } );
@@ -355,7 +477,76 @@
             $('#assignedUserModal').modal('show');
         });
 
+        /*权限分配*/
+        $('#assignedPermission').click(function () {
+            if(!roleData){
+                noty({
+                    text: '提示 - 请先选择角色!',
+                });
+                return;
+            }
+            $.post('selelctPermissionByRoleId.do',{roleId:roleData.id},function (result) {
 
+                 $('#permissionTree').treeview({
+                    data: result.content.rows,
+                    showCheckbox: true,
+                     onNodeChecked:function(event, node) {
+                         if(node.parentId==0) {
+                             $('#permissionTree').treeview('checkNode', [$('#permissionTree').treeview('getParent', node), {silent: true}]);
+                         }else if(node.parentId ==undefined){
+
+                         }else{
+                             $('#permissionTree').treeview('checkNode', [$('#permissionTree').treeview('getParent', node), {silent: true}]);
+                             $('#permissionTree').treeview('checkNode', [$('#permissionTree').treeview('getParent', $('#permissionTree').treeview('getParent', node)), {silent: true}]);
+                         }
+//                         if(!node.parentId){
+//                             var siblings = $('#permissionTree').treeview('getSiblings', node.id);
+//                             console.log(siblings);
+//                             for(var i =0;i < siblings.length;i++){
+//                                 $('#permissionTree').treeview('checkNode', [ siblings[i], { silent: true } ]);
+//                             }
+//                         }
+                     }
+
+                 });
+                $('#assignedPermissionModal').modal('show');
+            },'JSON');
+        });
+        /*保存权限分配*/
+        $('#saveassignedPermission').click(function () {
+             var treeArray = $('#permissionTree').treeview('getChecked');
+            var menuId = "";
+            var permissionId="";
+             for(var x in treeArray){
+                 if(!treeArray[x].parentId ){
+                     menuId+=treeArray[x].id+",";
+                 }else{
+                     permissionId +=treeArray[x].id+",";
+                 }
+             }
+            if(!menuId){
+                noty({
+                    text: '提示 - 请先勾选菜单!',
+                });
+                return ;
+            }
+            $.post('addRoleAndPermission.do',{roleId:roleData.id,menuId:menuId,permissionId:permissionId},function (result) {
+                if(result.state==0){
+                    $('#assignedPermissionModal').modal("hide");
+                    noty({
+                        text: '提示 - 操作成功!',
+                    });
+                }
+            },'JSON');
+        });
+
+        /* 查看角色*/
+        $('#roleInfo tbody').on( 'click', 'a#selectRole', function () {
+            var data = $('#roleInfo').DataTable().row($(this).parents('tr')).data();
+            roleFormReading(data,"查询菜单");
+            $("#roleForm  :input").attr("disabled",true);
+            $('#saveRole').attr("disabled",true);
+        });
         /*添加角色*/
         $('#addRole').on( 'click', function () {
             roleUrl='insertRole.do';

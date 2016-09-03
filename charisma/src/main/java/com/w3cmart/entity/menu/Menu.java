@@ -4,6 +4,7 @@ import com.h.common.admin.superpage.BeanSuper;
 import com.w3cmart.common.enums.StatusEnum;
 
 import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("serial")
 public class Menu implements BeanSuper {
@@ -22,6 +23,18 @@ public class Menu implements BeanSuper {
     private StatusEnum status;
 
     private List<Menu> nodes;
+
+    private Map state;
+
+    private Boolean selectable;
+
+    public Boolean getSelectable() {
+        return selectable;
+    }
+
+    public void setSelectable(Boolean selectable) {
+        this.selectable = selectable;
+    }
 
     public Long getId() {
         return id;
@@ -87,6 +100,14 @@ public class Menu implements BeanSuper {
         this.nodes = nodes;
     }
 
+    public Map getState() {
+        return state;
+    }
+
+    public void setState(Map state) {
+        this.state = state;
+    }
+
     /**
      * 拷贝，将对象中的字段全部拷贝到子对象中
      * @param bean 接收对象的子类
@@ -101,6 +122,8 @@ public class Menu implements BeanSuper {
         bean.setSort(getSort());
         bean.setStatus(getStatus());
         bean.setNodes(getNodes());
+        bean.setState(getState());
+        bean.setSelectable(getSelectable());
         return bean;
     }
 
@@ -117,6 +140,8 @@ public class Menu implements BeanSuper {
         	", icon:" + getIcon() + 
         	", sort:" + getSort() +
              ",nodes" + getNodes() +
+             ",state" + getState() +
+              ",selectable" + getSelectable() +
         	", status:" + getStatus() +
         "}";
     }

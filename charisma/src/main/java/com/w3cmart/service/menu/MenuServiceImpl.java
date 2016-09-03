@@ -33,4 +33,8 @@ public class MenuServiceImpl  implements  MenuService{
     public List<Menu> selectByExample(MenuCriteria menuCriteria) {
         return menuMapper.selectByExample(menuCriteria);
     }
+
+    public List<Menu> selectByUserName(String userName) {
+        return menuMapper.selectByUserName(userName);
+    }
 }

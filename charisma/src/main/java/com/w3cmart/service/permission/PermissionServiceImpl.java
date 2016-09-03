@@ -29,6 +29,10 @@ public class PermissionServiceImpl implements  PermissionService{
         return permissionMapper.deleteByPrimaryKey(id);
     }
 
+    public int deleteByExampler(PermissionCriteria permissionCriteria) {
+        return permissionMapper.deleteByExample(permissionCriteria);
+    }
+
     public List<Permission> selectByExampler(PermissionCriteria permissionCriteria) {
         return permissionMapper.selectByExample(permissionCriteria);
     }

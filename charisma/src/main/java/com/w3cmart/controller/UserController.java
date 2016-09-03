@@ -123,4 +123,13 @@ public class UserController {
         return ViewResult.newInstance().json();
     }
 
+    @RequestMapping("selectUserByRoleId")
+    @ResponseBody
+    public String selectUserByRoleId(Long roleId){
+        UserCriteria userCriteria = new UserCriteria();
+        UserCriteria.Criteria criteria = userCriteria.createCriteria();
+        criteria.andRoleIdEqualTo(roleId);
+        List<User> list = userService.selectByExample(userCriteria);
+        return ViewResult.newInstance().rows(list).json();
+    }
 }
