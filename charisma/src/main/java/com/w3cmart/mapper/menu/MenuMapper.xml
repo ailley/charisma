@@ -297,12 +297,14 @@
 	href,
 	icon,
 	sort,
-	STATUS
+	m.STATUS
     from menu  m
     LEFT JOIN role_menu rm
     on m.id = rm.menu_id
-    LEFT JOIN (SELECT user_name,role_id from user)u
-    on rm.role_id =u.role_id
+		LEFT JOIN role r
+		on r.id = rm.role_id
+    LEFT JOIN (SELECT user_name,role_code from user)u
+    on r.role_code =u.role_code
     where u.user_name =#{userName}
 
   </select>

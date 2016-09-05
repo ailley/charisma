@@ -9,7 +9,7 @@ public class User implements BeanSuper {
 
     private String uid;
 
-    private Long roleId;
+    private String roleCode;
 
     private String userName;
 
@@ -51,12 +51,12 @@ public class User implements BeanSuper {
         this.uid = uid == null ? null : uid.trim();
     }
 
-    public Long getRoleId() {
-        return roleId;
+    public String getRoleCode() {
+        return roleCode;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setRoleCode(String roleCode) {
+        this.roleCode = roleCode == null ? null : roleCode.trim();
     }
 
     public String getUserName() {
@@ -163,7 +163,7 @@ public class User implements BeanSuper {
     public  <T extends User> T copy(T bean) {
         bean.setId(getId());
         bean.setUid(getUid());
-        bean.setRoleId(getRoleId());
+        bean.setRoleCode(getRoleCode());
         bean.setUserName(getUserName());
         bean.setPassword(getPassword());
         bean.setName(getName());
@@ -187,7 +187,7 @@ public class User implements BeanSuper {
         return "{" + 
         	", id:" + getId() + 
         	", uid:" + getUid() + 
-        	", roleId:" + getRoleId() + 
+        	", roleCode:" + getRoleCode() + 
         	", userName:" + getUserName() + 
         	", password:" + getPassword() + 
         	", name:" + getName() + 

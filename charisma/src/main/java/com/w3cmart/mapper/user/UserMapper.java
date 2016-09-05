@@ -7,8 +7,15 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
+
 @Repository
 public interface UserMapper extends MapperSuper {
+
+    List<String> selectPermissionByUserName(String userName);
+
+    String selectRoleByUserName(String userName);
+
     int countByExample(UserCriteria example);
 
     int deleteByExample(UserCriteria example);

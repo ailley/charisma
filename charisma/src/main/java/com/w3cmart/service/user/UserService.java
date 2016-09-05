@@ -4,6 +4,7 @@ import com.w3cmart.entity.user.User;
 import com.w3cmart.entity.user.UserCriteria;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Administrator on 2016/8/13.
@@ -15,4 +16,8 @@ public interface UserService {
     int insert(User user);
 
     int update(User user);
+
+    String selectRoleByUserName(String userName);
+
+    List<String> selectPermissionByUserName(String userName);
 }

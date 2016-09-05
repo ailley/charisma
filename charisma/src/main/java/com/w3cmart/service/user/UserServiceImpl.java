@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Administrator on 2016/8/13.
@@ -26,5 +27,13 @@ public class UserServiceImpl implements UserService{
 
     public int update(User user) {
         return userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    public String selectRoleByUserName(String userName) {
+        return userMapper.selectRoleByUserName(userName);
+    }
+
+    public List<String> selectPermissionByUserName(String userName) {
+        return userMapper.selectPermissionByUserName(userName);
     }
 }

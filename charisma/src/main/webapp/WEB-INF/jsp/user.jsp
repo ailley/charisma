@@ -199,6 +199,7 @@
             "ajax":"selectUserInfo.do",//ajax请求后台JSON数据
              "sDom": "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
              "sPaginationType": "bootstrap",
+             "stateSave": "true",
              "columnDefs": [
                  {
                      orderable: false,

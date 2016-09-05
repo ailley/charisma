@@ -431,7 +431,7 @@
         });
         roleTable.on( 'select', function ( e, dt, type, indexes ) {
             roleData = roleTable.rows( indexes ).data().toArray()[0];
-            table.ajax.url( 'selectUserByRoleId.do?roleId='+roleData.id ).load();
+            table.ajax.url( 'selectUserByRoleId.do?roleCode='+roleData.roleCode ).load();
         } ) .on( 'deselect', function ( e, dt, type, indexes ) {
             roleData = null;
         } );
@@ -454,7 +454,7 @@
                     userIds +=userData[x].id+",";
                 }
             }
-            $.post('insertRoleId.do',{userIds:userIds,roleId:roleData.id},function (result) {
+            $.post('insertRoleCode.do',{userIds:userIds,roleCode:roleData.roleCode},function (result) {
                 if(result.state==0){
                     $('#assignedUserModal').modal("hide");
                     userTable.ajax.reload();

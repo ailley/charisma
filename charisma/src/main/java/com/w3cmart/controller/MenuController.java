@@ -12,6 +12,7 @@ import com.w3cmart.service.menu.MenuService;
 import com.w3cmart.service.roleMenu.RoleMenuService;
 import com.w3cmart.service.user.UserService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,12 +34,14 @@ public class MenuController {
     private MenuService menuService;
 
     @RequestMapping("menu")
+    @RequiresPermissions("visit:menu")
     public String toMenu(){
         return "menu";
     }
 
     @RequestMapping("selelctMenu")
     @ResponseBody
+    @RequiresPermissions("select:menu")
     public String selectMenu(){
         MenuCriteria menuCri = new MenuCriteria();
         MenuCriteria.Criteria cri =menuCri.createCriteria();
@@ -55,6 +58,7 @@ public class MenuController {
 
     @RequestMapping("addRootMenu")
     @ResponseBody
+    @RequiresPermissions("add:rootMenu")
     public String addRootMenu(Menu menu){
         menu.setStatus(StatusEnum.ENABLE);
         menu.setParentId(0L);
@@ -78,6 +82,7 @@ public class MenuController {
 
     @RequestMapping("addMenu")
     @ResponseBody
+    @RequiresPermissions("add:menu")
     public String addMenu(Menu menu){
         menu.setStatus(StatusEnum.ENABLE);
         menuService.addRootMenu(menu);
@@ -85,12 +90,14 @@ public class MenuController {
     }
     @RequestMapping("updateMenu")
     @ResponseBody
+    @RequiresPermissions("update:menu")
     public String updateMenu(Menu menu){
         menuService.updateMenu(menu);
         return ViewResult.newInstance().json();
     }
     @RequestMapping("deleteMenu")
     @ResponseBody
+    @RequiresPermissions("delete:menu")
     public String deleteMenu(Long id){
         menuService.deleteMenu(id);
         return ViewResult.newInstance().json();

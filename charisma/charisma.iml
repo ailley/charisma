@@ -88,6 +88,8 @@
     <orderEntry type="library" name="Maven: net.sf.ehcache:ehcache-core:2.6.6" level="project" />
     <orderEntry type="library" name="Maven: org.apache.shiro:shiro-quartz:1.2.2" level="project" />
     <orderEntry type="library" name="Maven: org.opensymphony.quartz:quartz:1.6.1" level="project" />
+    <orderEntry type="library" name="Maven: org.aspectj:aspectjrt:1.8.0" level="project" />
+    <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.8.0" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.2.3" level="project" />
   </component>
 </module>

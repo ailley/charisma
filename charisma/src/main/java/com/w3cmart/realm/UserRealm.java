@@ -1,15 +1,22 @@
 package com.w3cmart.realm;
 
+import com.w3cmart.entity.permission.Permission;
 import com.w3cmart.entity.user.User;
 import com.w3cmart.entity.user.UserCriteria;
 import com.w3cmart.service.user.UserService;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.subject.Subject;
 
 import javax.annotation.Resource;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by 13708 on 2016/8/15.
@@ -24,7 +31,23 @@ public class UserRealm extends AuthorizingRealm {
      * @return
      */
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        return null;
+        String userName = (String) principals.getPrimaryPrincipal();
+        Subject subject = SecurityUtils.getSubject();
+        Session session = subject.getSession();
+        SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+        if (session.getAttribute("role") == null) {
+            String role = userService.selectRoleByUserName(userName);
+            authorizationInfo.addRole(role);
+            session.setAttribute("role", role);
+        }
+        if (session.getAttribute("permissions") == null) {
+            List<String> permissionsList = userService.selectPermissionByUserName(userName);
+            if(permissionsList != null && permissionsList.size()>0){
+                authorizationInfo.addStringPermissions(permissionsList);
+            }
+            session.setAttribute("permissions",permissionsList.toString());
+        }
+        return authorizationInfo;
     }
 
     /**
