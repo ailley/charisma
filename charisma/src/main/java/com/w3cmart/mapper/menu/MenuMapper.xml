@@ -291,6 +291,7 @@
   </update>
   <select id="selectByUserName" parameterType="String"  resultMap="BaseResultMap">
    SELECT
+   m.id,
    text,
 	parent_id,
 	href,
