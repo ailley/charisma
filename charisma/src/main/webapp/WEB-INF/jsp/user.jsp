@@ -199,7 +199,7 @@
             "ajax":"selectUserInfo.do",//ajax请求后台JSON数据
              "sDom": "<'row'<'col-md-6'l><'col-md-6'f>r>t<'row'<'col-md-12'i><'col-md-12 center-block'p>>",
              "sPaginationType": "bootstrap",
-             "stateSave": "true",
+             "bStateSave": "true",
              "columnDefs": [
                  {
                      orderable: false,
@@ -293,7 +293,7 @@
                         noty({
                             text: '提示 - 删除成功!',
                         });
-                        table.ajax.reload();
+                        table.ajax.reload(null,false);
                     }else {
                         noty({
                             text: '提示 - 删除失败!',
@@ -311,7 +311,7 @@
             $.post(url, $('#userForm').serialize(), function(result) {
                 if(result.state==0){
                     $('#myModal').modal("hide");
-                    table.ajax.reload();
+                    table.ajax.reload(null,false);
                     noty({
                         text: '提示 - 操作成功!',
                     });
