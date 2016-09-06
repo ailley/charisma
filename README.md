@@ -3,7 +3,7 @@
 
 后台语言使用的是Java
 
-框架SpringMVC + mybatis + shiro + Bootstrap
+框架SpringMVC + mybatis + shiro + redis + Bootstrap
 
 其中Mapper层、Model层是基于[MybatisGenerator](https://github.com/ailley/MybatisGenerator)自动生成的
 
