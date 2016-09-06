@@ -8,8 +8,8 @@
   <context-param>
   <param-name>contextConfigLocation</param-name>
   <param-value>
-  classpath:spring-mybatis.xml
-  classpath:spring-shiro.xml
+    classpath:spring-mybatis-redis.xml
+    classpath:spring-shiro.xml
   </param-value>
   </context-param>
   <!-- Shiro配置 -->

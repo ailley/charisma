@@ -3,6 +3,8 @@ package com.w3cmart.service.user;
 import com.w3cmart.entity.user.User;
 import com.w3cmart.entity.user.UserCriteria;
 import com.w3cmart.mapper.user.UserMapper;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

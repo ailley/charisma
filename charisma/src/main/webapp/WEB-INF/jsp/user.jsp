@@ -161,7 +161,7 @@
                         <div class="form-group">
                             <label for="email" class="col-sm-2 control-label">Email</label>
                             <div class="col-sm-10">
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Email">
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Email" disabled>
                             </div>
                         </div>
                         <div class="form-group">
@@ -278,7 +278,9 @@
             $('#save').attr("disabled",true);
         });
         $('#userInfo tbody').on( 'click', 'a#edit', function () {
-            !$("form  :input").not('#userName').not("#email").attr("disabled",false);
+            $('#userName').attr("disabled",true);
+            $('#email').attr("disabled",true);
+            $("form  :input").not('#userName').not("#email").attr("disabled",false);
             $('#save').attr("disabled",false);
             url='updatetUser.do';
             var data = $('#userInfo').DataTable().row($(this).parents('tr')).data();

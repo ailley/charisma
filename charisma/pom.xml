@@ -223,7 +223,23 @@
           <artifactId>gson</artifactId>
           <version>2.2.3</version>
       </dependency>
-
+      <!-- redis cache related.....start -->
+      <dependency>
+          <groupId>org.springframework.data</groupId>
+          <artifactId>spring-data-redis</artifactId>
+          <version>1.6.0.RELEASE</version>
+      </dependency>
+      <dependency>
+          <groupId>redis.clients</groupId>
+          <artifactId>jedis</artifactId>
+          <version>2.7.3</version>
+      </dependency>
+      <!-- redis cache related.....end -->
+      <dependency>
+          <groupId>org.crazycake</groupId>
+          <artifactId>shiro-redis</artifactId>
+          <version>2.4.2.1-RELEASE</version>
+      </dependency>
   </dependencies>
 
   <build>
