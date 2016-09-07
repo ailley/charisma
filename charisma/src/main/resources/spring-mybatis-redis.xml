@@ -58,6 +58,11 @@
     <bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
         <property name="caches">
             <set>
+                <!-- 这里可以配置多个redis -->
+                <!-- <bean class="com.w3cmart.cache.RedisCache">
+                     <property name="redisTemplate" ref="redisTemplate" />
+                     <property name="name" value="default"/>
+                </bean> -->
                 <bean class="com.w3cmart.cache.RedisCache">
                     <property name="redisTemplate" ref="redisTemplate" />
                     <property name="name" value="common"/>
