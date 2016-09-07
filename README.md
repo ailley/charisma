@@ -27,9 +27,9 @@
 
 * 将项目克隆下载下来,打开IDEA 将其IDEA 或者点击Fork一下采用IDEA 自带的git克隆到IDEA
 
-
-
 * 导入项目后,查看webapp下一个sql文件夹,将charisma.sql在你的mysql工具中刷一下
+
+* 下载[redis-windows.zip](https://github.com/ServiceStack/redis-windows/raw/master/downloads/redis-latest.zip) 并运行redis-server
 
 * 设置好你的maven环境,选择pom.xml右击 选择Maven点击Reimport会自动下载相关jar
 
