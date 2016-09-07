@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:task="http://www.springframework.org/schema/task"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/task
+	http://www.springframework.org/schema/task/spring-task-3.2.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+	   default-lazy-init="true">
+
+	<description>定时任务</description>
+	<task:scheduler id="springScheduler" pool-size="2"/>
+
+	<context:component-scan base-package="com.w3cmart.common.scheduled" />
+
+	<task:scheduled-tasks scheduler="springScheduler">
+		<task:scheduled ref="confirmSyso" method="execute" cron="0/1 48 10 * * ?" />
+	</task:scheduled-tasks>
+
+</beans>

@@ -246,6 +246,12 @@
           <artifactId>core</artifactId>
           <version>3.2.0</version>
       </dependency>
+      <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
+      <dependency>
+          <groupId>org.apache.cxf</groupId>
+          <artifactId>apache-cxf</artifactId>
+          <version>3.1.4</version>
+      </dependency>
 
   </dependencies>
 

@@ -10,6 +10,7 @@
   <param-value>
     classpath:spring-mybatis-redis.xml
     classpath:spring-shiro.xml
+    classpath:spring-cxf.xml
   </param-value>
   </context-param>
   <!-- Shiro配置 -->
@@ -61,6 +62,17 @@
     <url-pattern>*.htm</url-pattern>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
+ <!--CXF-->
+  <servlet>
+    <servlet-name>CXFServlet</servlet-name>
+    <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CXFServlet</servlet-name>
+    <url-pattern>/ws/*</url-pattern>
+  </servlet-mapping>
+
   <welcome-file-list>
     <welcome-file>/index.jsp</welcome-file>
   </welcome-file-list>
