@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -26,13 +27,13 @@
         <!-- user dropdown starts -->
         <div class="btn-group pull-right">
             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> admin</span>
+                <i class="glyphicon glyphicon-user"></i><span class="hidden-sm hidden-xs"> <shiro:principal type="java.lang.String"/> </span>
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
                 <li><a href="#">Profile</a></li>
                 <li class="divider"></li>
-                <li><a href="logout.htm">Logout</a></li>
+                <li><a href="logout.htm">退出</a></li>
             </ul>
         </div>
         <!-- user dropdown ends -->
@@ -41,7 +42,7 @@
         <div class="btn-group pull-right theme-container animated tada">
             <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                 <i class="glyphicon glyphicon-tint"></i><span
-                    class="hidden-sm hidden-xs"> Change Theme / Skin</span>
+                    class="hidden-sm hidden-xs"> 选择 主题 / 皮肤</span>
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" id="themes">
