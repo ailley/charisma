@@ -14,10 +14,10 @@
 	<description>定时任务</description>
 	<task:scheduler id="springScheduler" pool-size="2"/>
 
-	<context:component-scan base-package="com.w3cmart.common.scheduled" />
+	<!--<context:component-scan base-package="com.w3cmart.common.scheduled" />-->
 
-	<task:scheduled-tasks scheduler="springScheduler">
-		<task:scheduled ref="confirmSyso" method="execute" cron="0/1 48 10 * * ?" />
-	</task:scheduled-tasks>
+	<!--<task:scheduled-tasks scheduler="springScheduler">-->
+		<!--<task:scheduled ref="confirmSyso" method="execute" cron="0/1 48 10 * * ?" />-->
+	<!--</task:scheduled-tasks>-->
 
 </beans>

@@ -33,7 +33,7 @@
     
  
     <!-- 下面配置一些第三方包的日志过滤级别，用于避免刷屏 -->
- <!-- -->
+
     <logger name="org.springframework" level="WARN"/>
     <logger name="com.opensymphony" level="WARN"/>
     <logger name="org.apache" level="WARN"/>

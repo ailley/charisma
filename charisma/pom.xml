@@ -9,7 +9,7 @@
   <url>http://maven.apache.org</url>
   <properties>
     <!-- spring版本号 -->
-    <spring.version>4.0.2.RELEASE</spring.version>
+    <spring.version>4.2.0.RELEASE</spring.version>
     <!-- mybatis版本号 -->
     <mybatis.version>3.2.6</mybatis.version>
     <!-- log4j日志文件管理包版本 -->
@@ -247,12 +247,27 @@
           <version>3.2.0</version>
       </dependency>
       <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
+      <!--<dependency>-->
+          <!--<groupId>org.apache.cxf</groupId>-->
+          <!--<artifactId>apache-cxf</artifactId>-->
+          <!--<version>3.1.4</version>-->
+      <!--</dependency>-->
+      <!-- fasterxml -->
       <dependency>
-          <groupId>org.apache.cxf</groupId>
-          <artifactId>apache-cxf</artifactId>
-          <version>3.1.4</version>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-core</artifactId>
+          <version>2.1.0</version>
       </dependency>
-
+      <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-databind</artifactId>
+          <version>2.1.0</version>
+      </dependency>
+      <dependency>
+          <groupId>com.fasterxml.jackson.core</groupId>
+          <artifactId>jackson-annotations</artifactId>
+          <version>2.1.0</version>
+      </dependency>
   </dependencies>
 
   <build>

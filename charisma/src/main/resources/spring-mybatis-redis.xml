@@ -18,7 +18,7 @@
     <!--</bean>-->
 
     <!-- 启用缓存注解功能，这个是必须的，否则注解不会生效，另外，该注解一定要声明在spring主配置文件中才会生效 -->
-    <cache:annotation-driven cache-manager="cacheManager" />
+    <!--<cache:annotation-driven cache-manager="cacheManager" />-->
 
     <!-- 引入properties配置文件 -->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
