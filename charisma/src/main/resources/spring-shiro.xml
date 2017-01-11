@@ -21,7 +21,7 @@
         <!--<property name="sessionManager" ref="sessionManager" />-->
 
         <!-- 使用下面配置的缓存管理器 -->
-        <!--<property name="cacheManager" ref="cacheManager"/>-->
+        <property name="cacheManager" ref="cacheManager"/>
     </bean>
 
     <!-- Realm实现  修改密码先清空AuthenticationInfo 调用Realm的clearCachedAuthenticationInfo方法
